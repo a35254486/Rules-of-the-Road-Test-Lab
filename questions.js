@@ -573,7 +573,7 @@ const questionBank = [
   },
   {
     "Q #": 60,
-    "QUESTION TEXT": "INLAND ONLY Two vessels are meeting on a clear day and will pass less than half a mile apart. In this situation whistle signals __________.",
+    "QUESTION TEXT": "INLAND ONLY Two vessels are meeting on a clear day and will pass less than half a mile apart. In this situation, whistle signals __________.",
     "RULE TAGS": "Ror inland;Ror 34a;Ror 34h",
     "ANSWER 1": "must be exchanged",
     "POINTS": 0,
@@ -1054,7 +1054,7 @@ const questionBank = [
   },
   {
     "Q #": 108,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel \"A\" is overtaking vessel \"B\" as shown. Vessel \"B\" is an air-cushion vessel operating in the nondisplacement mode. In addition to a steady white light which other light will vessel \"A\" observe on vessel \"B\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel A is overtaking vessel \"B\" as shown. Vessel \"B\" is an air-cushion vessel operating in the nondisplacement mode. In addition to a steady white light which other light will vessel \"A\" observe on vessel \"B\"?",
     "RULE TAGS": "Ror inland;Ror international;Ror 23b",
     "ANSWER 1": "Steady green light",
     "POINTS": 0,
@@ -3760,7 +3760,7 @@ const questionBank = [
     "Q #": 370,
     "QUESTION TEXT": "INTERNATIONAL ONLY For the purpose of the Rules, except where otherwise required, the term __________.",
     "RULE TAGS": "Ror international;Ror 03",
-    "ANSWER 1": \"vessel\" includes wing in ground craft",
+    "ANSWER 1": "\"vessel\" includes wing in ground craft",
     "POINTS": 100,
     "ANSWER 2": "\"seaplane\" includes nondisplacement craft",
     "POINTS.1": 0,
@@ -8529,7 +8529,7 @@ const questionBank = [
   },
   {
     "Q #": 750,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND In DIAGRAM 8 (below), vessel \"A\" and vessel \"B\" (which is pushing ahead) are meeting head-on as shown. How must the vessels pass?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND In Diagram 8, vessel \"A\" and vessel \"B\" (which is pushing ahead) are meeting head-on as shown. How must the vessels pass?",
     "RULE TAGS": "Ror inland;Ror international;Ror 14",
     "ANSWER 1": "Vessel \"A\" must alter course while vessel \"B\" continues on its present course.",
     "POINTS": 0,
@@ -9751,7 +9751,7 @@ const questionBank = [
   },
   {
     "Q #": 850,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND You are underway in reduced visibility. You hear the fog signal of another vessel about 20",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND You are underway in reduced visibility. You hear the fog signal of another vessel about 20° on your starboard bow. Risk of collision may exist. You should __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 19",
     "ANSWER 1": "alter course to starboard to pass around the other vessel",
     "POINTS": 0,
@@ -10674,7 +10674,7 @@ const questionBank = [
   },
   {
     "Q #": 926,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND You are on vessel \"A\" in DIAGRAM 32, and hear vessel \"B\" sound a signal indicating its intention to overtake you. You feel it is not safe for vessel \"B\" to overtake you at the present time. You should __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND You are on vessel \"A\" in Diagram 32, and hear vessel \"B\" sound a signal indicating its intention to overtake you. You feel it is not safe for vessel \"B\" to overtake you at the present time. You should __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 34d;Ror 34c",
     "ANSWER 1": "sound five or more short rapid blasts",
     "POINTS": 100,
