@@ -75,6 +75,15 @@ const categoryNames = {
     6: "Part D - Sound and Light Signals"
 };
 
+const bucketShortNames = {
+    1: "A",
+    2: "B1",
+    3: "B2",
+    4: "B3",
+    5: "C",
+    6: "D"
+};
+
 /**
  * Parses numeric rule designations from question data.
  * Safely evaluates individual numbers, hyphenated ranges (e.g. 20-31), and formatting quirks.
@@ -153,7 +162,7 @@ function assembleProportionalQuiz(targetSize, chosenBuckets) {
     const finalQuotas = {};
     let runningTotalAllocated = 0;
     activeBucketKeys.forEach(k => {
-        const proportionalPercentage = bucketWeightings[k] / sumActiveWeights;
+        const proportionalPercentage = bucketWeightings[k]/sumActiveWeights;
         let bucketQuota = Math.round(targetSize * proportionalPercentage);
         
         // Guaranteed representation safety
@@ -312,8 +321,8 @@ function loadActiveQuestion() {
     // --- DYNAMIC DIAGRAM RESOLUTION ---
     const imgElement = document.getElementById("quiz-diagram");
     if (imgElement) {
-        // Matches "DIAGRAM <number>" or "DIAGRAM [<number>]"
-        const match = question["QUESTION TEXT"].match(/DIAGRAM\s*\[?(\d+)\]?/i);
+        // Matches "DIAGRAM <number>" or "DIAGRAM [<number>]" with or without markdown styling
+        const match = question["QUESTION TEXT"].match(/Diagram\s*(?:\\?\*|\\|\[)*(\d+)/i);
         if (match) {
             const diagramNum = match[1];
             const normalizedKey = `DIAGRAM ${diagramNum}`; // e.g. "DIAGRAM 1"
@@ -804,7 +813,9 @@ function renderHistoryDashboardTable() {
             if (bucketData) {
                 const bPercent = Math.round((bucketData.correct / bucketData.total) * 100);
                 const passClass = bPercent >= 90 ? "badge-bucket-pass" : "badge-bucket-fail";
-                metricsBadges += `<span class="badge badge-bucket ${passClass}">B${b}: ${bucketData.correct}/${bucketData.total}</span> `;
+                // RESOLVE NEW CUSTOM LABEL:
+                const label = bucketShortNames[b] || `B${b}`;
+                metricsBadges += `<span class="badge badge-bucket ${passClass}">${label}: ${bucketData.correct}/${bucketData.total}</span> `;
             }
         }
         const tr = document.createElement("tr");
@@ -846,9 +857,12 @@ function renderHistoricalRuleBreakdown(entries) {
     if (entries.length === 0) {
         container.innerHTML = "";
         container.style.display = "none";
+        container.classList.add("hidden");
         return;
     }
-    container.style.display = "block";
+    container.style.display = "flex";
+    container.classList.remove("hidden");
+    
     // Initialize metrics container for rules 1-37
     const cumulativeRules = {};
     for (let r = 1; r <= 37; r++) {
@@ -995,14 +1009,14 @@ function injectHistoryRuleStyles() {
         }
         .history-rule-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
-            gap: 8px;
+            grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+            gap: 6px;
         }
         .rule-grid-item {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 6px;
-            padding: 8px 4px;
+            padding: 4px 2px;
             text-align: center;
             transition: transform 0.2s ease, background-color 0.2s ease;
         }
@@ -1011,43 +1025,43 @@ function injectHistoryRuleStyles() {
             background: rgba(255, 255, 255, 0.05);
         }
         .rule-grid-number {
-            font-size: 10px;
+            font-size: 9px;
             color: #a0aec0;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
             font-weight: 500;
         }
         .rule-grid-score {
-            font-size: 12px;
+            font-size: 10px;
             font-weight: bold;
         }
         .rule-grid-percent {
-            font-size: 10px;
-            margin-top: 2px;
+            font-size: 9px;
+            margin-top: 1px;
             opacity: 0.85;
         }
         .rule-status-mastered {
-            border-left: 3px solid #48bb78;
+            border-left: 2px solid #48bb78;
             background: rgba(72, 187, 120, 0.04);
         }
         .rule-status-mastered .rule-grid-score {
             color: #48bb78;
         }
         .rule-status-warning {
-            border-left: 3px solid #ecc94b;
+            border-left: 2px solid #ecc94b;
             background: rgba(236, 201, 75, 0.04);
         }
         .rule-status-warning .rule-grid-score {
             color: #ecc94b;
         }
         .rule-status-weak {
-            border-left: 3px solid #e53e3e;
+            border-left: 2px solid #e53e3e;
             background: rgba(229, 62, 62, 0.04);
         }
         .rule-status-weak .rule-grid-score {
             color: #e53e3e;
         }
         .rule-status-untested {
-            border-left: 3px solid #718096;
+            border-left: 2px solid #718096;
         }
         .rule-status-untested .rule-grid-score {
             color: #718096;
@@ -1306,7 +1320,8 @@ function generateAdminDeploymentReport() {
     // Map tracking to readable rows
     const reportData = questionBank.map((q, idx) => {
         const bucketIds = identifyQuestionBuckets(q);
-        const bucketLabels = bucketIds.map(b => `B${b}`).join(", ") || "General";
+        // RESOLVE NEW CUSTOM LABEL:
+        const bucketLabels = bucketIds.map(b => bucketShortNames[b] || `B${b}`).join(", ") || "General";
         return {
             id: idx,
             buckets: bucketLabels,
@@ -1314,7 +1329,6 @@ function generateAdminDeploymentReport() {
             count: deploymentCounts[idx] || 0
         };
     });
-    
     // Sort so the most frequently deployed questions show up at the very top
     reportData.sort((a, b) => b.count - a.count);
     
