@@ -27,15 +27,15 @@ const questionBank = [
   },
   {
     "Q #": 3,
-    "QUESTION TEXT": "INLAND ONLY In a narrow channel, you are underway on vessel \"A\" and desire to overtake vessel \"B\". After you sound two short blasts on your whistle, vessel \"B\" sounds five short and rapid blasts on the whistle. You should __________.",
+    "QUESTION TEXT": "INLAND ONLY In a narrow channel, you are underway on vessel A and desire to overtake vessel B. After you sound two short blasts on your whistle, vessel B sounds five short and rapid blasts on the whistle. You should __________.",
     "RULE TAGS": "Ror inland;Ror 09e;Ror 34c",
-    "ANSWER 1": "pass with caution on the port side of vessel \"B\"",
+    "ANSWER 1": "pass with caution on the port side of vessel B",
     "POINTS": 0,
     "ANSWER 2": "hold your relative position, and then sound another signal after the situation has stabilized",
     "POINTS.1": 100,
     "ANSWER 3": "answer the five short blast signal then stop your vessel until the other vessel initiates a signal",
     "POINTS.2": 0,
-    "ANSWER 4": "slow or stop and expect radical maneuvers from \"B\"",
+    "ANSWER 4": "slow or stop and expect radical maneuvers from B",
     "POINTS.3": 0
   },
   {
@@ -326,15 +326,15 @@ const questionBank = [
   },
   {
     "Q #": 35,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 9. You are on vessel \"B\" and vessel \"A\" desires to overtake you on your starboard side as shown. After the vessels have exchanged one blast signals, you should _______.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 9. You are on vessel B and vessel A desires to overtake you on your starboard side as shown. After the vessels have exchanged one blast signals, you should _______.",
     "RULE TAGS": "Ror inland;Ror 13;Ror 34c",
     "ANSWER 1": "alter course to the left",
     "POINTS": 0,
-    "ANSWER 2": "slow your vessel until vessel \"A\" has passed",
+    "ANSWER 2": "slow your vessel until vessel A has passed",
     "POINTS.1": 0,
     "ANSWER 3": "hold course and speed",
     "POINTS.2": 100,
-    "ANSWER 4": "alter course to the left or right to give vessel \"A\" more sea room",
+    "ANSWER 4": "alter course to the left or right to give vessel A more sea room",
     "POINTS.3": 0
   },
   {
@@ -456,7 +456,7 @@ const questionBank = [
   },
   {
     "Q #": 48,
-    "QUESTION TEXT": "INLAND ONLY Which statement is TRUE concerning the fog signal of a vessel 15 meters in length, anchored in a \"special anchorage area\" approved by the Secretary?",
+    "QUESTION TEXT": "INLAND ONLY Which statement is TRUE concerning the fog signal of a vessel 15 meters in length, anchored in a special anchorage area approved by the Secretary?",
     "RULE TAGS": "Ror inland;Ror 35l",
     "ANSWER 1": "The vessel is not required to sound a fog signal.",
     "POINTS": 100,
@@ -482,7 +482,7 @@ const questionBank = [
   },
   {
     "Q #": 50,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 29. Vessels \"A\" and \"B\" are meeting on a river as shown and will pass about 1/4 mile apart. Which statement is TRUE?",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 29. Vessels A and B are meeting on a river as shown and will pass about 1/4 mile apart. Which statement is TRUE?",
     "RULE TAGS": "Ror inland;Ror 14;Ror 34a",
     "ANSWER 1": "Both vessels should continue on course and pass without sounding any whistle signals.",
     "POINTS": 0,
@@ -521,15 +521,15 @@ const questionBank = [
   },
   {
     "Q #": 53,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 38. You are on vessel \"A\" and vessel \"B\" desires to overtake you on the starboard side as shown. After the vessels have exchanged one blast signals you should _______.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 38. You are on vessel A and vessel B desires to overtake you on the starboard side as shown. After the vessels have exchanged one blast signals you should _______.",
     "RULE TAGS": "Ror inland;Ror 13",
     "ANSWER 1": "alter course to the left",
     "POINTS": 0,
-    "ANSWER 2": "slow your vessel until vessel \"B\" has passed",
+    "ANSWER 2": "slow your vessel until vessel B has passed",
     "POINTS.1": 0,
     "ANSWER 3": "hold course and speed",
     "POINTS.2": 100,
-    "ANSWER 4": "alter course to the left or right to give vessel \"B\" more sea room",
+    "ANSWER 4": "alter course to the left or right to give vessel B more sea room",
     "POINTS.3": 0
   },
   {
@@ -599,7 +599,7 @@ const questionBank = [
   },
   {
     "Q #": 63,
-    "QUESTION TEXT": "INLAND ONLY A vessel of less than 20 meters in length at anchor at night in a \"special anchorage area designated by the Secretary\" __________.",
+    "QUESTION TEXT": "INLAND ONLY A vessel of less than 20 meters in length at anchor at night in a special anchorage area designated by the Secretary __________.",
     "RULE TAGS": "Ror inland;Ror 30g",
     "ANSWER 1": "must show one white light",
     "POINTS": 0,
@@ -638,7 +638,7 @@ const questionBank = [
   },
   {
     "Q #": 68,
-    "QUESTION TEXT": "INLAND ONLY Which is CORRECT regarding a \"special flashing light\"?",
+    "QUESTION TEXT": "INLAND ONLY Which is CORRECT regarding a special flashing light?",
     "RULE TAGS": "Ror inland;Ror 21g",
     "ANSWER 1": "It must be yellow in color.",
     "POINTS": 0,
@@ -664,13 +664,13 @@ const questionBank = [
   },
   {
     "Q #": 70,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 29. Vessels \"A\" and \"B\" are meeting in a narrow channel as shown. Which statement is TRUE concerning whistle signals between the vessels?",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 29. Vessels A and B are meeting in a narrow channel as shown. Which statement is TRUE concerning whistle signals between the vessels?",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "Both vessels should sound two short blasts.",
     "POINTS": 100,
     "ANSWER 2": "Both vessels should sound one short blast.",
     "POINTS.1": 0,
-    "ANSWER 3": "Vessel \"A\" should sound one short blast and vessel \"B\" should sound two short blasts.",
+    "ANSWER 3": "Vessel A should sound one short blast and vessel B should sound two short blasts.",
     "POINTS.2": 0,
     "ANSWER 4": "Neither vessel should sound any signal as no course change is necessary.",
     "POINTS.3": 0
@@ -716,15 +716,15 @@ const questionBank = [
   },
   {
     "Q #": 75,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 31. You are on vessel \"A\", and vessel \"B\" desires to overtake you on your starboard side as shown. After the vessels have exchanged one blast signals, you should _______.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 31. You are on vessel A, and vessel B desires to overtake you on your starboard side as shown. After the vessels have exchanged one blast signals, you should _______.",
     "RULE TAGS": "Ror inland;Ror 13;Ror 34c",
     "ANSWER 1": "alter course to the left",
     "POINTS": 0,
-    "ANSWER 2": "slow your vessel until vessel \"B\" has passed",
+    "ANSWER 2": "slow your vessel until vessel B has passed",
     "POINTS.1": 0,
     "ANSWER 3": "hold course and speed",
     "POINTS.2": 100,
-    "ANSWER 4": "alter course to the left to give vessel \"B\" more sea room",
+    "ANSWER 4": "alter course to the left to give vessel B more sea room",
     "POINTS.3": 0
   },
   {
@@ -742,7 +742,7 @@ const questionBank = [
   },
   {
     "Q #": 77,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 41. Vessels \"A\" and \"B\" are meeting on a river as shown and will pass about 1/4 mile apart. What action should the vessels take?",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 41. Vessels A and B are meeting on a river as shown and will pass about 1/4 mile apart. What action should the vessels take?",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "Both vessels should continue on course and pass without sounding any whistle signals.",
     "POINTS": 0,
@@ -833,7 +833,7 @@ const questionBank = [
   },
   {
     "Q #": 87,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 37. Two power-driven vessels are meeting in the situation as shown. One short blast by vessel \"A\" means __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 37. Two power-driven vessels are meeting in the situation as shown. One short blast by vessel A means __________.",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "I am altering my course to starboard",
     "POINTS": 0,
@@ -1054,7 +1054,7 @@ const questionBank = [
   },
   {
     "Q #": 108,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel A is overtaking vessel \"B\" as shown. Vessel \"B\" is an air-cushion vessel operating in the nondisplacement mode. In addition to a steady white light which other light will vessel \"A\" observe on vessel \"B\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel A is overtaking vessel B as shown. Vessel B is an air-cushion vessel operating in the nondisplacement mode. In addition to a steady white light which other light will vessel A observe on vessel B?",
     "RULE TAGS": "Ror inland;Ror international;Ror 23b",
     "ANSWER 1": "Steady green light",
     "POINTS": 0,
@@ -1067,7 +1067,7 @@ const questionBank = [
   },
   {
     "Q #": 109,
-    "QUESTION TEXT": "INLAND ONLY Which statement is TRUE concerning the fog signal of a sailing vessel 25 meters in length, anchored in a \"special anchorage area\" approved by the Secretary?",
+    "QUESTION TEXT": "INLAND ONLY Which statement is TRUE concerning the fog signal of a sailing vessel 25 meters in length, anchored in a special anchorage area approved by the Secretary?",
     "RULE TAGS": "Ror 35g;Ror 35i;Ror inland",
     "ANSWER 1": "The vessel is not required to sound a fog signal.",
     "POINTS": 0,
@@ -1080,7 +1080,7 @@ const questionBank = [
   },
   {
     "Q #": 114,
-    "QUESTION TEXT": "INLAND ONLY What is true of a \"special flashing light\"?",
+    "QUESTION TEXT": "INLAND ONLY What is true of a special flashing light?",
     "RULE TAGS": "Ror inland;Ror 21g",
     "ANSWER 1": "It may show through an arc of not less than 180°.",
     "POINTS": 100,
@@ -1106,7 +1106,7 @@ const questionBank = [
   },
   {
     "Q #": 116,
-    "QUESTION TEXT": "INLAND ONLY Which is a characteristic of a \"special flashing light\"?",
+    "QUESTION TEXT": "INLAND ONLY Which is a characteristic of a special flashing light?",
     "RULE TAGS": "Ror inland;Ror 21g",
     "ANSWER 1": "It is required for all vessels being pushed ahead as part of a composite unit.",
     "POINTS": 0,
@@ -1353,9 +1353,9 @@ const questionBank = [
   },
   {
     "Q #": 145,
-    "QUESTION TEXT": "INLAND ONLY In a narrow channel, you are underway on vessel \"A\" and desire to overtake vessel \"B\". After you sound two short blasts on your whistle, vessel \"B\" sounds five short and rapid blasts on the whistle. You should __________.",
+    "QUESTION TEXT": "INLAND ONLY In a narrow channel, you are underway on vessel A and desire to overtake vessel B. After you sound two short blasts on your whistle, vessel B sounds five short and rapid blasts on the whistle. You should __________.",
     "RULE TAGS": "Ror inland;Ror 34c",
-    "ANSWER 1": "pass with caution on the port side of vessel \"B\"",
+    "ANSWER 1": "pass with caution on the port side of vessel B",
     "POINTS": 0,
     "ANSWER 2": "wait for the other vessel to initiate a signal",
     "POINTS.1": 0,
@@ -1769,7 +1769,7 @@ const questionBank = [
   },
   {
     "Q #": 182,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND See Diagram 39. You are on vessel \"A\" towing a barge alongside and meeting vessel \"B\" as shown. Which action should you take?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND See Diagram 39. You are on vessel A towing a barge alongside and meeting vessel B as shown. Which action should you take?",
     "RULE TAGS": "Ror inland;Ror international;Ror 14a",
     "ANSWER 1": "Alter course to port",
     "POINTS": 0,
@@ -1808,7 +1808,7 @@ const questionBank = [
   },
   {
     "Q #": 185,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 40. You are on vessel \"B\" and crossing a narrow channel. Vessel \"A\", who can only navigate within the channel, is on your port bow and crossing as shown. Which action should you take?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 40. You are on vessel B and crossing a narrow channel. Vessel A, who can only navigate within the channel, is on your port bow and crossing as shown. Which action should you take?",
     "RULE TAGS": "Ror inland;Ror international;Ror 09d",
     "ANSWER 1": "Maintain course and speed as the ship is on your port bow.",
     "POINTS": 0,
@@ -1821,9 +1821,9 @@ const questionBank = [
   },
   {
     "Q #": 186,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 40. You are on vessel \"A\" and proceeding down a narrow channel as shown. You can only navigate within the channel and vessel \"B\" is crossing so as to involve risk of collision. Which action would be most prudent?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 40. You are on vessel A and proceeding down a narrow channel as shown. You can only navigate within the channel and vessel B is crossing so as to involve risk of collision. Which action would be most prudent?",
     "RULE TAGS": "Ror inland;Ror international;Ror 09d",
-    "ANSWER 1": "Back down and allow vessel \"B\" to cross ahead.",
+    "ANSWER 1": "Back down and allow vessel B to cross ahead.",
     "POINTS": 0,
     "ANSWER 2": "Alter course to starboard to give him more room.",
     "POINTS.1": 0,
@@ -1899,13 +1899,13 @@ const questionBank = [
   },
   {
     "Q #": 192,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 14. Vessels \"A\" and \"B\" are in a crossing situation on the high seas as shown. Vessel \"B\" sounds one short blast. What is the proper action for vessel \"A\" to take?",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 14. Vessels A and B are in a crossing situation on the high seas as shown. Vessel B sounds one short blast. What is the proper action for vessel A to take?",
     "RULE TAGS": "Ror international;Ror 24a;Ror 15",
     "ANSWER 1": "Answer with one blast and hold course and speed",
     "POINTS": 0,
     "ANSWER 2": "Hold course and speed",
     "POINTS.1": 100,
-    "ANSWER 3": "Answer with one blast and keep clear of vessel \"B\"",
+    "ANSWER 3": "Answer with one blast and keep clear of vessel B",
     "POINTS.2": 0,
     "ANSWER 4": "Sound doubt signal",
     "POINTS.3": 0
@@ -2068,7 +2068,7 @@ const questionBank = [
   },
   {
     "Q #": 205,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel \"A\" is overtaking vessel \"B\" as shown. Vessel \"A\" is the __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel A is overtaking vessel B as shown. Vessel A is the __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 13",
     "ANSWER 1": "Give-way vessel",
     "POINTS": 100,
@@ -2120,7 +2120,7 @@ const questionBank = [
   },
   {
     "Q #": 217,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel \"A\" is overtaking vessel \"B\" as shown. Vessel \"B\" is the __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel A is overtaking vessel B as shown. Vessel B is the __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 13",
     "ANSWER 1": "stand-on vessel",
     "POINTS": 100,
@@ -2133,7 +2133,7 @@ const questionBank = [
   },
   {
     "Q #": 218,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel \"A\" is overtaking vessel \"B\" as shown. Vessel \"B\" is the __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel A is overtaking vessel B as shown. Vessel B is the __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 13",
     "ANSWER 1": "give-way vessel",
     "POINTS": 0,
@@ -2146,20 +2146,20 @@ const questionBank = [
   },
   {
     "Q #": 219,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel \"A\" is overtaking vessel \"B\" as shown. Vessel \"B\" __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel A is overtaking vessel B as shown. Vessel B __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 13",
     "ANSWER 1": "should change course to the right",
     "POINTS": 0,
-    "ANSWER 2": "should slow down until vessel \"A\" has passed",
+    "ANSWER 2": "should slow down until vessel A has passed",
     "POINTS.1": 0,
     "ANSWER 3": "should hold its course and speed",
     "POINTS.2": 100,
-    "ANSWER 4": "may steer various courses and vessel \"A\" must keep clear",
+    "ANSWER 4": "may steer various courses and vessel A must keep clear",
     "POINTS.3": 0
   },
   {
     "Q #": 220,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel \"A\" is overtaking vessel \"B\" as shown, and will pass without changing course. Vessel \"B\" is an air-cushion vessel operating in the nondisplacement mode. Which light will vessel \"A\" observe from vessel \"B\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel A is overtaking vessel B as shown, and will pass without changing course. Vessel B is an air-cushion vessel operating in the nondisplacement mode. Which light will vessel A observe from vessel B?",
     "RULE TAGS": "Ror inland;Ror international;Ror 23b",
     "ANSWER 1": "Green light",
     "POINTS": 0,
@@ -2172,7 +2172,7 @@ const questionBank = [
   },
   {
     "Q #": 221,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel \"A\" is overtaking vessel \"B\" as shown. Which color light will vessel \"A\" observe on vessel \"B\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel A is overtaking vessel B as shown. Which color light will vessel A observe on vessel B?",
     "RULE TAGS": "Ror inland;Ror international;Ror 21;Ror 13",
     "ANSWER 1": "Green",
     "POINTS": 0,
@@ -2185,7 +2185,7 @@ const questionBank = [
   },
   {
     "Q #": 222,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 17. Vessel \"A\" is power-driven and overtaking power-driven vessel \"B\" as shown and will pass without changing course. Vessel \"A\" should sound __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 17. Vessel A is power-driven and overtaking power-driven vessel B as shown and will pass without changing course. Vessel A should sound __________.",
     "RULE TAGS": "Ror inland;Ror 34c",
     "ANSWER 1": "one short blast",
     "POINTS": 0,
@@ -2198,7 +2198,7 @@ const questionBank = [
   },
   {
     "Q #": 223,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 17. Vessel \"A\" is overtaking vessel \"B\" on open waters as shown and will pass without changing course. Vessel \"A\" should sound __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 17. Vessel A is overtaking vessel B on open waters as shown and will pass without changing course. Vessel A should sound __________.",
     "RULE TAGS": "Ror international;Ror 34c",
     "ANSWER 1": "one short blast",
     "POINTS": 0,
@@ -2211,7 +2211,7 @@ const questionBank = [
   },
   {
     "Q #": 224,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 17. Vessel \"A\" is overtaking vessel \"B\" on open waters as shown and will pass without changing course. Vessel \"A\" should sound __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 17. Vessel A is overtaking vessel B on open waters as shown and will pass without changing course. Vessel A should sound __________.",
     "RULE TAGS": "Ror international;Ror 34c",
     "ANSWER 1": "no whistle signal",
     "POINTS": 100,
@@ -2224,20 +2224,20 @@ const questionBank = [
   },
   {
     "Q #": 225,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 29. Vessels \"A\" and \"B\" are meeting in a narrow channel as shown but are not in sight of one another due to restricted visibility. Which statement is TRUE concerning whistle signals between the vessels?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 29. Vessels A and B are meeting in a narrow channel as shown but are not in sight of one another due to restricted visibility. Which statement is TRUE concerning whistle signals between the vessels?",
     "RULE TAGS": "Ror 35;Ror inland;Ror international",
     "ANSWER 1": "Both vessels should sound two short blasts.",
     "POINTS": 0,
     "ANSWER 2": "Both vessels should sound one short blast.",
     "POINTS.1": 0,
-    "ANSWER 3": "Vessel \"A\" should sound one short blast and vessel \"B\" should sound two short blasts.",
+    "ANSWER 3": "Vessel A should sound one short blast and vessel B should sound two short blasts.",
     "POINTS.2": 0,
     "ANSWER 4": "None of the above statements is TRUE.",
     "POINTS.3": 100
   },
   {
     "Q #": 226,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 29. Vessels \"A\" and \"B\" are meeting on a river as shown and will pass 1/4 mile apart. Which statement is TRUE?",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 29. Vessels A and B are meeting on a river as shown and will pass 1/4 mile apart. Which statement is TRUE?",
     "RULE TAGS": "Ror inland;Ror 34g",
     "ANSWER 1": "Both vessels should continue on course and pass without sounding any whistle signals.",
     "POINTS": 0,
@@ -2250,7 +2250,7 @@ const questionBank = [
   },
   {
     "Q #": 227,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel \"A\" is overtaking vessel \"B\" as shown and will pass without changing course. Which light will vessel \"A\" observe on vessel \"B\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 17. Vessel A is overtaking vessel B as shown and will pass without changing course. Which light will vessel A observe on vessel B?",
     "RULE TAGS": "Ror inland;Ror international;Ror 21;Ror 13",
     "ANSWER 1": "yellow towing light",
     "POINTS": 0,
@@ -2263,7 +2263,7 @@ const questionBank = [
   },
   {
     "Q #": 228,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 29. Vessels \"A\" and \"B\" are meeting on a river as shown and will pass 1/4 mile apart. Which statement is TRUE?",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 29. Vessels A and B are meeting on a river as shown and will pass 1/4 mile apart. Which statement is TRUE?",
     "RULE TAGS": "Ror inland;Ror 34g",
     "ANSWER 1": "Whistle signals must be exchanged in all cases when passing within one half mile of each other.",
     "POINTS": 0,
@@ -2276,24 +2276,24 @@ const questionBank = [
   },
   {
     "Q #": 229,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 37. You are on Vessel \"A\" engaged in fishing as shown in a narrow channel. Vessel \"B\" is a tanker proceeding in the channel. Vessel \"B\" sounds five short and rapid blasts. You should __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 37. You are on Vessel A engaged in fishing as shown in a narrow channel. Vessel B is a tanker proceeding in the channel. Vessel B sounds five short and rapid blasts. You should __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 09c",
-    "ANSWER 1": "not answer the whistle signals from vessel \"B\"",
+    "ANSWER 1": "not answer the whistle signals from vessel B",
     "POINTS": 0,
     "ANSWER 2": "maintain course and speed",
     "POINTS.1": 0,
-    "ANSWER 3": "not impede the passage of vessel \"B\"",
+    "ANSWER 3": "not impede the passage of vessel B",
     "POINTS.2": 100,
     "ANSWER 4": "sound one prolonged followed by two short blasts",
     "POINTS.3": 0
   },
   {
     "Q #": 230,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 32. You are on vessel \"A\" as shown. Vessel \"B\" sounds two short blasts. You should __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 32. You are on vessel A as shown. Vessel B sounds two short blasts. You should __________.",
     "RULE TAGS": "Ror international;Ror 34c",
     "ANSWER 1": "sound two prolonged blasts followed by two short blasts",
     "POINTS": 0,
-    "ANSWER 2": "not answer the whistle signal from vessel \"B\"",
+    "ANSWER 2": "not answer the whistle signal from vessel B",
     "POINTS.1": 100,
     "ANSWER 3": "sound two short blasts and maintain course and speed",
     "POINTS.2": 0,
@@ -2302,20 +2302,20 @@ const questionBank = [
   },
   {
     "Q #": 231,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 32. You are on a 15-meter vessel \"A\" in a narrow channel as shown. Vessel \"B\", a large tanker which can safely navigate only within the channel, sounds five short and rapid blasts. You should __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 32. You are on a 15-meter vessel A in a narrow channel as shown. Vessel B, a large tanker which can safely navigate only within the channel, sounds five short and rapid blasts. You should __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 09b",
     "ANSWER 1": "sound one prolonged followed by two short blasts",
     "POINTS": 0,
-    "ANSWER 2": "not answer the whistle signal from vessel \"B\"",
+    "ANSWER 2": "not answer the whistle signal from vessel B",
     "POINTS.1": 0,
     "ANSWER 3": "maintain course and speed",
     "POINTS.2": 0,
-    "ANSWER 4": "not impede the passage of vessel \"B\"",
+    "ANSWER 4": "not impede the passage of vessel B",
     "POINTS.3": 100
   },
   {
     "Q #": 232,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 32. You are on vessel \"A\" as shown. Vessel \"B\" sounds two short blasts. You should __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 32. You are on vessel A as shown. Vessel B sounds two short blasts. You should __________.",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "sound two prolonged blasts followed by two short blasts",
     "POINTS": 0,
@@ -2328,20 +2328,20 @@ const questionBank = [
   },
   {
     "Q #": 233,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 32. You are on vessel \"A\" as shown in a narrow channel. Vessel \"B\" sounds two short blasts. If you are in agreement you should __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 32. You are on vessel A as shown in a narrow channel. Vessel B sounds two short blasts. If you are in agreement you should __________.",
     "RULE TAGS": "Ror inland;Ror 34c",
     "ANSWER 1": "sound two short blasts",
     "POINTS": 100,
     "ANSWER 2": "sound two prolonged followed by two short blasts",
     "POINTS.1": 0,
-    "ANSWER 3": "not answer the whistle signals from vessel \"B\"",
+    "ANSWER 3": "not answer the whistle signals from vessel B",
     "POINTS.2": 0,
     "ANSWER 4": "None of the above",
     "POINTS.3": 0
   },
   {
     "Q #": 234,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 36. You are on vessel \"I\" and in sight of vessel \"II\" as shown. Vessel \"II\" sounds one short blast. If you agree, you should __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 36. You are on vessel I and in sight of vessel II as shown. Vessel II sounds one short blast. If you agree, you should __________.",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "sound one short blast and hold course and speed",
     "POINTS": 100,
@@ -2354,7 +2354,7 @@ const questionBank = [
   },
   {
     "Q #": 235,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 36. Vessels \"I\" and \"II\" are power-driven vessels. You are on vessel \"I\" as shown. You are the __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 36. Vessels I and II are power-driven vessels. You are on vessel I as shown. You are the __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 15",
     "ANSWER 1": "give-way vessel",
     "POINTS": 0,
@@ -2367,7 +2367,7 @@ const questionBank = [
   },
   {
     "Q #": 238,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 41. Vessels \"A\" and \"B\" are meeting on a river as shown and will pass about 1/4 mile apart. Which action should the vessels take?",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 41. Vessels A and B are meeting on a river as shown and will pass about 1/4 mile apart. Which action should the vessels take?",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "The vessels should continue on course and pass without sounding any whistle signals.",
     "POINTS": 0,
@@ -2380,7 +2380,7 @@ const questionBank = [
   },
   {
     "Q #": 239,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 41. Vessels \"A\" and \"B\" are meeting on a river as shown and will pass 1/4 mile apart. Which action should the vessels take?",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 41. Vessels A and B are meeting on a river as shown and will pass 1/4 mile apart. Which action should the vessels take?",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "The vessels should continue on course and pass without sounding any whistle signals.",
     "POINTS": 100,
@@ -2393,7 +2393,7 @@ const questionBank = [
   },
   {
     "Q #": 240,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 41. Vessels \"A\" and \"B\" are meeting on a river as shown and will pass 1/4 mile apart. Which light(s) on the tug & barge will you see, if you are on vessel \"A\"?",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 41. Vessels A and B are meeting on a river as shown and will pass 1/4 mile apart. Which light(s) on the tug & barge will you see, if you are on vessel A?",
     "RULE TAGS": "Ror inland;Ror 24f;Ror 24c",
     "ANSWER 1": "a special flashing light",
     "POINTS": 0,
@@ -2406,7 +2406,7 @@ const questionBank = [
   },
   {
     "Q #": 241,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 41. Vessels \"A\" and \"B\" are meeting on a river as shown and will pass 1/4 mile apart. Which is one of the lights on vessel \"B\" that you will see if you are on vessel \"A\"?",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 41. Vessels A and B are meeting on a river as shown and will pass 1/4 mile apart. Which is one of the lights on vessel B that you will see if you are on vessel A?",
     "RULE TAGS": "Ror inland;Ror 24f;Ror 24c",
     "ANSWER 1": "red sidelight",
     "POINTS": 0,
@@ -2419,7 +2419,7 @@ const questionBank = [
   },
   {
     "Q #": 242,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 41. Vessels \"A\" and \"B\" are meeting on a river as shown and will pass 1/4 mile apart. Which light on vessel \"B\" will you see if you are on vessel \"A\"?",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 41. Vessels A and B are meeting on a river as shown and will pass 1/4 mile apart. Which light on vessel B will you see if you are on vessel A?",
     "RULE TAGS": "Ror international;Ror 24f",
     "ANSWER 1": "special flashing yellow light",
     "POINTS": 0,
@@ -2432,7 +2432,7 @@ const questionBank = [
   },
   {
     "Q #": 243,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 41. Vessels \"A\" and \"B\" are meeting on a river as shown and will pass 1/4 mile apart. If you are on vessel \"A\", in addition to the sidelight, which other light(s) will you see on vessel \"B\"?",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 41. Vessels A and B are meeting on a river as shown and will pass 1/4 mile apart. If you are on vessel A, in addition to the sidelight, which other light(s) will you see on vessel B?",
     "RULE TAGS": "Ror international;Ror 24f;Ror 24c",
     "ANSWER 1": "special flashing yellow light",
     "POINTS": 0,
@@ -2458,7 +2458,7 @@ const questionBank = [
   },
   {
     "Q #": 245,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 41. Vessels \"A\" and \"B\" are meeting on a river as shown and will pass 1/4 mile apart. Which statement is TRUE?",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 41. Vessels A and B are meeting on a river as shown and will pass 1/4 mile apart. Which statement is TRUE?",
     "RULE TAGS": "Ror inland;Ror 34h",
     "ANSWER 1": "Whistle signals must be exchanged in all situations when passing within one half mile.",
     "POINTS": 0,
@@ -2510,11 +2510,11 @@ const questionBank = [
   },
   {
     "Q #": 250,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 36. You are on a power-driven vessel \"I\" as shown. Vessel \"II\" is a vessel engaged in fishing within 1/2 a mile of your vessel. Which action should you take?",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 36. You are on a power-driven vessel I as shown. Vessel II is a vessel engaged in fishing within 1/2 a mile of your vessel. Which action should you take?",
     "RULE TAGS": "Ror international;Ror 18",
     "ANSWER 1": "Hold course and speed without giving a signal.",
     "POINTS": 0,
-    "ANSWER 2": "Change course or speed to avoid vessel \"II\".",
+    "ANSWER 2": "Change course or speed to avoid vessel II.",
     "POINTS.1": 100,
     "ANSWER 3": "Sound one short blast, and await a response.",
     "POINTS.2": 0,
@@ -2536,7 +2536,7 @@ const questionBank = [
   },
   {
     "Q #": 252,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 36. You are on a power-driven vessel \"I\" as shown. Vessel \"II\" is a vessel engaged in fishing. The vessels will pass within 1/2 mile of each other. Which action should you take?",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 36. You are on a power-driven vessel I as shown. Vessel II is a vessel engaged in fishing. The vessels will pass within 1/2 mile of each other. Which action should you take?",
     "RULE TAGS": "Ror international;Ror 18",
     "ANSWER 1": "Hold course and speed without giving a signal.",
     "POINTS": 0,
@@ -2588,11 +2588,11 @@ const questionBank = [
   },
   {
     "Q #": 258,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 37. Two vessels are meeting as shown in a narrow channel. Vessel \"A\" is a sailing vessel. Vessel \"B\" is a power-driven vessel which can safely navigate only within the channel. Vessel \"B\" sounds the doubt signal. Vessel \"A\" shall __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 37. Two vessels are meeting as shown in a narrow channel. Vessel A is a sailing vessel. Vessel B is a power-driven vessel which can safely navigate only within the channel. Vessel B sounds the doubt signal. Vessel A shall __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 09b",
     "ANSWER 1": "maintain course and speed",
     "POINTS": 0,
-    "ANSWER 2": "not impede the passage of vessel \"B\"",
+    "ANSWER 2": "not impede the passage of vessel B",
     "POINTS.1": 100,
     "ANSWER 3": "sound one prolonged followed by two short blasts",
     "POINTS.2": 0,
@@ -2939,7 +2939,7 @@ const questionBank = [
   },
   {
     "Q #": 298,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram \"B\" shows the arc of visibility of a __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram B shows the arc of visibility of a __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 21",
     "ANSWER 1": "white masthead light",
     "POINTS": 0,
@@ -2952,7 +2952,7 @@ const questionBank = [
   },
   {
     "Q #": 299,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram \"A\" shows the arc of visibility of a __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram A shows the arc of visibility of a __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 21",
     "ANSWER 1": "white masthead light",
     "POINTS": 0,
@@ -2965,7 +2965,7 @@ const questionBank = [
   },
   {
     "Q #": 301,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram \"D\" shows the arc of visibility of a __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram D shows the arc of visibility of a __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 21",
     "ANSWER 1": "white masthead light",
     "POINTS": 0,
@@ -2978,7 +2978,7 @@ const questionBank = [
   },
   {
     "Q #": 302,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram \"C\" shows the arc of visibility of a __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram C shows the arc of visibility of a __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 21",
     "ANSWER 1": "white masthead light",
     "POINTS": 0,
@@ -2991,7 +2991,7 @@ const questionBank = [
   },
   {
     "Q #": 303,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram \"B\" shows the arc of visibility of a __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram B shows the arc of visibility of a __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 21",
     "ANSWER 1": "white masthead light",
     "POINTS": 0,
@@ -3004,7 +3004,7 @@ const questionBank = [
   },
   {
     "Q #": 304,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram \"A\" shows the arc of visibility of a __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram A shows the arc of visibility of a __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 21",
     "ANSWER 1": "yellow flashing light",
     "POINTS": 0,
@@ -3017,7 +3017,7 @@ const questionBank = [
   },
   {
     "Q #": 306,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram \"B\" shows the arc of visibility of a __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram B shows the arc of visibility of a __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 21",
     "ANSWER 1": "yellow flashing light",
     "POINTS": 0,
@@ -3030,7 +3030,7 @@ const questionBank = [
   },
   {
     "Q #": 307,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram \"A\" shows the arc of visibility of a __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram A shows the arc of visibility of a __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 21",
     "ANSWER 1": "yellow flashing light",
     "POINTS": 0,
@@ -3043,7 +3043,7 @@ const questionBank = [
   },
   {
     "Q #": 308,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram \"C\" shows the arc of visibility of a __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 23. Diagram C shows the arc of visibility of a __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 21",
     "ANSWER 1": "yellow flashing light",
     "POINTS": 0,
@@ -3056,7 +3056,7 @@ const questionBank = [
   },
   {
     "Q #": 309,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel \"A\" sounds one short blast on the whistle. Vessel \"B\" should __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel A sounds one short blast on the whistle. Vessel B should __________.",
     "RULE TAGS": "Ror inland;Ror 34a;Ror 15",
     "ANSWER 1": "maintain course and speed without sounding any signals",
     "POINTS": 0,
@@ -3069,7 +3069,7 @@ const questionBank = [
   },
   {
     "Q #": 310,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel \"A\" sounds one short blast on the whistle. Vessel \"B\" should sound __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel A sounds one short blast on the whistle. Vessel B should sound __________.",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "one short blast",
     "POINTS": 100,
@@ -3082,7 +3082,7 @@ const questionBank = [
   },
   {
     "Q #": 311,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel \"A\" sounds one short blast on the whistle. Vessel \"B\" should sound __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel A sounds one short blast on the whistle. Vessel B should sound __________.",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "one prolonged, one short, one prolonged and one short blasts",
     "POINTS": 0,
@@ -3095,7 +3095,7 @@ const questionBank = [
   },
   {
     "Q #": 312,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel \"A\" sounds one short blast on the whistle. Vessel \"B\" should sound __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel A sounds one short blast on the whistle. Vessel B should sound __________.",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "one prolonged, one short, one prolonged and one short blasts",
     "POINTS": 0,
@@ -3108,7 +3108,7 @@ const questionBank = [
   },
   {
     "Q #": 313,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel \"A\" sounds one short blast on the whistle. Vessel \"B\" should sound __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel A sounds one short blast on the whistle. Vessel B should sound __________.",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "one prolonged, one short, one prolonged and one short blasts",
     "POINTS": 0,
@@ -3121,7 +3121,7 @@ const questionBank = [
   },
   {
     "Q #": 314,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel \"A\" sounds one short blast on the whistle. This signal means __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel A sounds one short blast on the whistle. This signal means __________.",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "I intend to leave you on my port side",
     "POINTS": 100,
@@ -3134,7 +3134,7 @@ const questionBank = [
   },
   {
     "Q #": 315,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel \"A\" sounds one short blast on the whistle. This signal means __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel A sounds one short blast on the whistle. This signal means __________.",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "I intend to leave you on my starboard side",
     "POINTS": 0,
@@ -3147,7 +3147,7 @@ const questionBank = [
   },
   {
     "Q #": 316,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel \"A\" sounds one short blast on the whistle. This signal means __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel A sounds one short blast on the whistle. This signal means __________.",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "I intend to leave you on my starboard side",
     "POINTS": 0,
@@ -3160,7 +3160,7 @@ const questionBank = [
   },
   {
     "Q #": 317,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel \"A\" sounds one short blast on the whistle. This signal means __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel A sounds one short blast on the whistle. This signal means __________.",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "I intend to overtake you on my starboard side",
     "POINTS": 0,
@@ -3173,7 +3173,7 @@ const questionBank = [
   },
   {
     "Q #": 318,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel \"A\" sounds one short blast on the whistle. This signal means __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel A sounds one short blast on the whistle. This signal means __________.",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "I intend to overtake you on my port side",
     "POINTS": 0,
@@ -3186,7 +3186,7 @@ const questionBank = [
   },
   {
     "Q #": 319,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel \"A\" sounds one short blast of the whistle. Vessel \"B\" should __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel A sounds one short blast of the whistle. Vessel B should __________.",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "sound the doubt signal and slow to moderate speed",
     "POINTS": 0,
@@ -3199,7 +3199,7 @@ const questionBank = [
   },
   {
     "Q #": 320,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel \"A\" sounds one short blast of the whistle. Vessel \"B\" should __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel A sounds one short blast of the whistle. Vessel B should __________.",
     "RULE TAGS": "Ror international;Ror 34a;Ror 15",
     "ANSWER 1": "maintain course and speed",
     "POINTS": 100,
@@ -3212,7 +3212,7 @@ const questionBank = [
   },
   {
     "Q #": 321,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel \"A\" sounds one short blast of the whistle. Vessel \"B\" should sound __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel A sounds one short blast of the whistle. Vessel B should sound __________.",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "one prolonged, one short, one prolonged and one short blasts",
     "POINTS": 0,
@@ -3225,7 +3225,7 @@ const questionBank = [
   },
   {
     "Q #": 322,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel \"A\" sounds one short blast of the whistle. Vessel \"B\" should sound __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel A sounds one short blast of the whistle. Vessel B should sound __________.",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "one prolonged, one short, one prolonged and one short blasts",
     "POINTS": 0,
@@ -3238,7 +3238,7 @@ const questionBank = [
   },
   {
     "Q #": 323,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel \"A\" sounds one short blast of the whistle. This signal means __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel A sounds one short blast of the whistle. This signal means __________.",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "I am altering my course to starboard",
     "POINTS": 100,
@@ -3251,7 +3251,7 @@ const questionBank = [
   },
   {
     "Q #": 325,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel \"A\" sounds one short blast of the whistle. This signal means __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel A sounds one short blast of the whistle. This signal means __________.",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "I intend to overtake you on your starboard side",
     "POINTS": 0,
@@ -3264,7 +3264,7 @@ const questionBank = [
   },
   {
     "Q #": 326,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel \"A\" sounds one short blast of the whistle. This signal means __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel A sounds one short blast of the whistle. This signal means __________.",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "I intend to leave you on your starboard side",
     "POINTS": 0,
@@ -3277,7 +3277,7 @@ const questionBank = [
   },
   {
     "Q #": 327,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel \"A\" sounds one short blast of the whistle. This signal means __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel A sounds one short blast of the whistle. This signal means __________.",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "I am altering my course to starboard",
     "POINTS": 100,
@@ -3290,7 +3290,7 @@ const questionBank = [
   },
   {
     "Q #": 328,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel \"A\" sounds one short blast of the whistle. This signal means __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel A sounds one short blast of the whistle. This signal means __________.",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "I intend to leave you on my port side",
     "POINTS": 0,
@@ -3303,7 +3303,7 @@ const questionBank = [
   },
   {
     "Q #": 329,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel \"A\" sounds one short blast of the whistle. This signal means __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel A sounds one short blast of the whistle. This signal means __________.",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "I intend to leave you on my starboard side",
     "POINTS": 0,
@@ -3316,7 +3316,7 @@ const questionBank = [
   },
   {
     "Q #": 330,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel \"A\" sounds one short blast of the whistle. Vessel \"B\" is the __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 42. Two power-driven vessels are crossing within one half mile of each other as shown. Vessel A sounds one short blast of the whistle. Vessel B is the __________.",
     "RULE TAGS": "Ror international;Ror 34a;Ror 15",
     "ANSWER 1": "burdened vessel",
     "POINTS": 0,
@@ -3329,7 +3329,7 @@ const questionBank = [
   },
   {
     "Q #": 331,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel \"A\" sounds one short blast on the whistle. You are on vessel \"B\" and doubt that sufficient action is being taken by vessel \"A\" to avoid collision. You should __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel A sounds one short blast on the whistle. You are on vessel B and doubt that sufficient action is being taken by vessel A to avoid collision. You should __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 15;Ror 17;Ror 35a",
     "ANSWER 1": "maintain course and speed",
     "POINTS": 0,
@@ -3342,7 +3342,7 @@ const questionBank = [
   },
   {
     "Q #": 332,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel \"A\" sounds one short blast on the whistle. You are on vessel \"B\" and doubt that sufficient action is being taken by vessel \"A\" to avoid collision. You should __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel A sounds one short blast on the whistle. You are on vessel B and doubt that sufficient action is being taken by vessel A to avoid collision. You should __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 34a;Ror 17;Ror 34d",
     "ANSWER 1": "maintain course and speed",
     "POINTS": 0,
@@ -3355,7 +3355,7 @@ const questionBank = [
   },
   {
     "Q #": 333,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel \"A\" sounds two short blasts on the whistle. You are on vessel \"B\" and are in doubt that sufficient action is being taken by vessel \"A\" to avoid collision. You should __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel A sounds two short blasts on the whistle. You are on vessel B and are in doubt that sufficient action is being taken by vessel A to avoid collision. You should __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 34a;Ror 17;Ror 34d",
     "ANSWER 1": "maintain course and speed",
     "POINTS": 0,
@@ -3368,7 +3368,7 @@ const questionBank = [
   },
   {
     "Q #": 334,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel \"A\" sounds two short blasts on the whistle. You are on vessel \"B\" and are in doubt that sufficient action is being taken by vessel \"A\" to avoid collision. You should __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel A sounds two short blasts on the whistle. You are on vessel B and are in doubt that sufficient action is being taken by vessel A to avoid collision. You should __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 17;Ror 34a;Ror 34d",
     "ANSWER 1": "maintain course and speed",
     "POINTS": 0,
@@ -3381,7 +3381,7 @@ const questionBank = [
   },
   {
     "Q #": 335,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel \"A\" sounds one short blast on the whistle. Vessel \"B\" is the __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel A sounds one short blast on the whistle. Vessel B is the __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 34a;Ror 15;Ror 17",
     "ANSWER 1": "burdened vessel",
     "POINTS": 0,
@@ -3394,7 +3394,7 @@ const questionBank = [
   },
   {
     "Q #": 337,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel \"A\" sounds one short blast on the whistle. Vessel \"B\" is the __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel A sounds one short blast on the whistle. Vessel B is the __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 34a;Ror 15;Ror 17",
     "ANSWER 1": "stand-on vessel",
     "POINTS": 100,
@@ -3407,7 +3407,7 @@ const questionBank = [
   },
   {
     "Q #": 338,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel \"A\" sounds one short blast on the whistle. Vessel \"B\" is the __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel A sounds one short blast on the whistle. Vessel B is the __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 34a;Ror 15;Ror 17",
     "ANSWER 1": "give-way vessel",
     "POINTS": 0,
@@ -3420,7 +3420,7 @@ const questionBank = [
   },
   {
     "Q #": 339,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel \"A\" sounds one short blast on the whistle. Vessel \"A\" is the __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel A sounds one short blast on the whistle. Vessel A is the __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 34a;Ror 15",
     "ANSWER 1": "give-way vessel",
     "POINTS": 100,
@@ -3433,7 +3433,7 @@ const questionBank = [
   },
   {
     "Q #": 341,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel \"A\" sounds one short blast on the whistle. Vessel \"A\" is the __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel A sounds one short blast on the whistle. Vessel A is the __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 34a;Ror 15",
     "ANSWER 1": "stand-on vessel",
     "POINTS": 0,
@@ -3472,13 +3472,13 @@ const questionBank = [
   },
   {
     "Q #": 344,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 32. You are on vessel \"A\" as shown and hear vessel \"B\" sound a signal indicating their intentions to overtake you. You feel it is not safe for vessel \"B\" to overtake you at the present time. You should __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 32. You are on vessel A as shown and hear vessel B sound a signal indicating their intentions to overtake you. You feel it is not safe for vessel B to overtake you at the present time. You should __________.",
     "RULE TAGS": "Ror inland;Ror 34a;Ror 34d",
     "ANSWER 1": "sound two short blasts",
     "POINTS": 0,
     "ANSWER 2": "sound one prolonged followed by three short blasts",
     "POINTS.1": 0,
-    "ANSWER 3": "not answer the whistle signal from vessel \"B\"",
+    "ANSWER 3": "not answer the whistle signal from vessel B",
     "POINTS.2": 0,
     "ANSWER 4": "None of the above",
     "POINTS.3": 100
@@ -3524,7 +3524,7 @@ const questionBank = [
   },
   {
     "Q #": 349,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel \"A\" sounds one short blast on the whistle. This signal means __________.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 42. Two power-driven vessels are crossing within a half a mile of each other as shown. Vessel A sounds one short blast on the whistle. This signal means __________.",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "I am altering my course to starboard",
     "POINTS": 0,
@@ -3563,7 +3563,7 @@ const questionBank = [
   },
   {
     "Q #": 352,
-    "QUESTION TEXT": "INLAND ONLY You are meeting \"head on\" a tug towing a barge alongside about a mile away. In addition to the white masthead lights which other lights do you see on the tug and tow combined?",
+    "QUESTION TEXT": "INLAND ONLY You are meeting head on a tug towing a barge alongside about a mile away. In addition to the white masthead lights which other lights do you see on the tug and tow combined?",
     "RULE TAGS": "Ror inland;Ror 24a;Ror 24f",
     "ANSWER 1": "One green and one red sidelight on the outside of the unit",
     "POINTS": 0,
@@ -3589,7 +3589,7 @@ const questionBank = [
   },
   {
     "Q #": 355,
-    "QUESTION TEXT": "INLAND ONLY Which statement is TRUE concerning the fog signal of a barge 35 meters in length, anchored in a \"special anchorage area\" approved by the Secretary?",
+    "QUESTION TEXT": "INLAND ONLY Which statement is TRUE concerning the fog signal of a barge 35 meters in length, anchored in a special anchorage area approved by the Secretary?",
     "RULE TAGS": "Ror inland;Ror 35l",
     "ANSWER 1": "The vessel shall ring a bell for 5 seconds every minute.",
     "POINTS": 0,
@@ -4330,7 +4330,7 @@ const questionBank = [
   },
   {
     "Q #": 419,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND The NAVIGATION RULES define a \"vessel not under command\" as a vessel which __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND The NAVIGATION RULES define a vessel not under command as a vessel which __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 03",
     "ANSWER 1": "from the nature of their work is unable to keep out of the way of another vessel",
     "POINTS": 0,
@@ -4486,13 +4486,13 @@ const questionBank = [
   },
   {
     "Q #": 433,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 14. You are underway on vessel \"A\" and sight vessel \"B\" which is a vessel underway and fishing as shown. Which statement is true?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 14. You are underway on vessel A and sight vessel B which is a vessel underway and fishing as shown. Which statement is true?",
     "RULE TAGS": "Ror inland;Ror international;Ror 18",
-    "ANSWER 1": "Vessel \"A\" must keep out of the way of vessel \"B\" because \"B\" is to port.",
+    "ANSWER 1": "Vessel A must keep out of the way of vessel B because B is to port.",
     "POINTS": 0,
-    "ANSWER 2": "Vessel \"A\" must keep out of the way of vessel \"B\" because \"B\" is fishing.",
+    "ANSWER 2": "Vessel A must keep out of the way of vessel B because B is fishing.",
     "POINTS.1": 100,
-    "ANSWER 3": "Vessel \"B\" must keep out of the way of vessel \"A\" because \"A\" is to starboard.",
+    "ANSWER 3": "Vessel B must keep out of the way of vessel A because A is to starboard.",
     "POINTS.2": 0,
     "ANSWER 4": "In this case, both vessels are required by the Rules to keep clear of each other.",
     "POINTS.3": 0
@@ -4577,7 +4577,7 @@ const questionBank = [
   },
   {
     "Q #": 440,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Two vessels meeting in a \"head-on\" situation are directed by the Rules to __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Two vessels meeting in a head-on situation are directed by the Rules to __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 14",
     "ANSWER 1": "alter course to starboard and pass port to port",
     "POINTS": 100,
@@ -4590,7 +4590,7 @@ const questionBank = [
   },
   {
     "Q #": 441,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel is \"engaged in fishing\" when __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel is engaged in fishing when __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 03d",
     "ANSWER 1": "her gear extends more than 100 meters from the vessel",
     "POINTS": 0,
@@ -4668,15 +4668,15 @@ const questionBank = [
   },
   {
     "Q #": 448,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 26. Vessels \"A\" and \"B\" are crossing as shown. Which statement is TRUE?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 26. Vessels A and B are crossing as shown. Which statement is TRUE?",
     "RULE TAGS": "Ror inland;Ror international;Ror 15",
     "ANSWER 1": "The vessels should pass starboard to starboard.",
     "POINTS": 0,
-    "ANSWER 2": "Vessel \"B\" should pass under the stern of vessel \"A\".",
+    "ANSWER 2": "Vessel B should pass under the stern of vessel A.",
     "POINTS.1": 0,
-    "ANSWER 3": "Vessel \"B\" should alter course to the right.",
+    "ANSWER 3": "Vessel B should alter course to the right.",
     "POINTS.2": 0,
-    "ANSWER 4": "Vessel \"A\" must keep clear of vessel \"B\".",
+    "ANSWER 4": "Vessel A must keep clear of vessel B.",
     "POINTS.3": 100
   },
   {
@@ -4889,15 +4889,15 @@ const questionBank = [
   },
   {
     "Q #": 465,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 27. You are aboard vessel \"A\", a power-driven vessel, on open waters and vessel \"B\", a sailing vessel, is sighted off your port bow as shown. Which vessel is the stand-on vessel?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 27. You are aboard vessel A, a power-driven vessel, on open waters and vessel B, a sailing vessel, is sighted off your port bow as shown. Which vessel is the stand-on vessel?",
     "RULE TAGS": "Ror inland;Ror international;Ror 18",
-    "ANSWER 1": "Vessel \"A\" because it is towing",
+    "ANSWER 1": "Vessel A because it is towing",
     "POINTS": 0,
-    "ANSWER 2": "Vessel \"A\" because it is to starboard of vessel \"B",
+    "ANSWER 2": "Vessel A because it is to starboard of vessel B",
     "POINTS.1": 0,
-    "ANSWER 3": "Vessel \"B\" because it is sailing",
+    "ANSWER 3": "Vessel B because it is sailing",
     "POINTS.2": 100,
-    "ANSWER 4": "Vessel \"B\" because it is to port of vessel \"A",
+    "ANSWER 4": "Vessel B because it is to port of vessel A",
     "POINTS.3": 0
   },
   {
@@ -5045,13 +5045,13 @@ const questionBank = [
   },
   {
     "Q #": 477,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 28. Vessel \"A\" is underway and pushing ahead when vessel \"B\" is sighted off the starboard bow as shown. Which vessel is the stand-on vessel?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 28. Vessel A is underway and pushing ahead when vessel B is sighted off the starboard bow as shown. Which vessel is the stand-on vessel?",
     "RULE TAGS": "Ror inland;Ror international;Ror 18",
-    "ANSWER 1": "Vessel \"A\" is the stand-on vessel because it is to port.",
+    "ANSWER 1": "Vessel A is the stand-on vessel because it is to port.",
     "POINTS": 0,
-    "ANSWER 2": "Vessel \"A\" is the stand-on vessel because it is pushing ahead.",
+    "ANSWER 2": "Vessel A is the stand-on vessel because it is pushing ahead.",
     "POINTS.1": 0,
-    "ANSWER 3": "Vessel \"B\" is the stand-on vessel because it is to starboard of vessel \"A\".",
+    "ANSWER 3": "Vessel B is the stand-on vessel because it is to starboard of vessel A.",
     "POINTS.2": 100,
     "ANSWER 4": "Neither vessel is the stand-on vessel.",
     "POINTS.3": 0
@@ -5079,7 +5079,7 @@ const questionBank = [
     "POINTS.1": 0,
     "ANSWER 3": "a black cylinder",
     "POINTS.2": 0,
-    "ANSWER 4": "a rigid replica of the International Code flag \"A\"",
+    "ANSWER 4": "a rigid replica of the International Code flag A",
     "POINTS.3": 100
   },
   {
@@ -5177,7 +5177,7 @@ const questionBank = [
     "Q #": 487,
     "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel is being propelled both by sail and by engines. Under the Rules, the vessel is __________.",
     "RULE TAGS": "Ror 25e;Ror 03c;Ror inland;Ror international",
-    "ANSWER 1": "a \"special circumstance\" vessel",
+    "ANSWER 1": "a special circumstance vessel",
     "POINTS": 0,
     "ANSWER 2": "not covered under any category",
     "POINTS.1": 0,
@@ -5279,7 +5279,7 @@ const questionBank = [
   },
   {
     "Q #": 495,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 15. You are on vessel \"A\" and approaching vessel \"B\" as shown. You are not sure whether your vessel is crossing or overtaking vessel \"B\". You should __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 15. You are on vessel A and approaching vessel B as shown. You are not sure whether your vessel is crossing or overtaking vessel B. You should __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 13",
     "ANSWER 1": "change course to make the situation definitely either crossing or overtaking",
     "POINTS": 0,
@@ -5292,7 +5292,7 @@ const questionBank = [
   },
   {
     "Q #": 496,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A \"flashing light\", by the definition given in the rules, is a light that __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A flashing light, by the definition given in the rules, is a light that __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 21",
     "ANSWER 1": "is red in color",
     "POINTS": 0,
@@ -5357,15 +5357,15 @@ const questionBank = [
   },
   {
     "Q #": 502,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 20. You are aboard vessel \"A\" which is towing on open waters when vessel \"B\", a sailing vessel, is sighted off your port bow as shown. Which vessel is the stand-on?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 20. You are aboard vessel A which is towing on open waters when vessel B, a sailing vessel, is sighted off your port bow as shown. Which vessel is the stand-on?",
     "RULE TAGS": "Ror inland;Ror international;Ror 18",
-    "ANSWER 1": "Vessel \"A\" is the stand-on vessel because it is towing.",
+    "ANSWER 1": "Vessel A is the stand-on vessel because it is towing.",
     "POINTS": 0,
-    "ANSWER 2": "Vessel \"A\" is the stand-on vessel because it is to starboard of vessel \"B\".",
+    "ANSWER 2": "Vessel A is the stand-on vessel because it is to starboard of vessel B.",
     "POINTS.1": 0,
-    "ANSWER 3": "Vessel \"B\" is the stand-on vessel because it is sailing.",
+    "ANSWER 3": "Vessel B is the stand-on vessel because it is sailing.",
     "POINTS.2": 100,
-    "ANSWER 4": "Vessel \"B\" is the stand-on vessel because it is to port of vessel \"A\".",
+    "ANSWER 4": "Vessel B is the stand-on vessel because it is to port of vessel A.",
     "POINTS.3": 0
   },
   {
@@ -5487,7 +5487,7 @@ const questionBank = [
   },
   {
     "Q #": 512,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel is \"in sight\" of another vessel when __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel is in sight of another vessel when __________.",
     "RULE TAGS": "Ror 03k;Ror inland;Ror international",
     "ANSWER 1": "it can be observed by radar",
     "POINTS": 0,
@@ -5799,7 +5799,7 @@ const questionBank = [
   },
   {
     "Q #": 537,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which vessel is \"underway\" under the Rules of the Road?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which vessel is underway under the Rules of the Road?",
     "RULE TAGS": "Ror 03i;Ror inland;Ror international",
     "ANSWER 1": "A vessel at anchor with the engine running",
     "POINTS": 0,
@@ -5942,7 +5942,7 @@ const questionBank = [
   },
   {
     "Q #": 548,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel which is \"restricted in its ability to maneuver\" under the Rules, is a vessel which is __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel which is restricted in its ability to maneuver under the Rules, is a vessel which is __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 03g",
     "ANSWER 1": "mineclearing",
     "POINTS": 100,
@@ -6111,7 +6111,7 @@ const questionBank = [
   },
   {
     "Q #": 561,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND According to the Rules, which vessel is NOT \"restricted in its ability to maneuver\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND According to the Rules, which vessel is NOT restricted in its ability to maneuver?",
     "RULE TAGS": "Ror 03c;Ror inland;Ror international;Ror 03g",
     "ANSWER 1": "A vessel servicing a navigation marker",
     "POINTS": 0,
@@ -7179,7 +7179,7 @@ const questionBank = [
     "Q #": 644,
     "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND All of the following are distress signals under the Rules EXCEPT __________.",
     "RULE TAGS": "Ror 37;Ror inland;Ror international",
-    "ANSWER 1": "International Code Signal \"AA\"",
+    "ANSWER 1": "International Code Signal AA",
     "POINTS": 100,
     "ANSWER 2": "orange-colored smoke",
     "POINTS.1": 0,
@@ -7229,7 +7229,7 @@ const questionBank = [
   },
   {
     "Q #": 648,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which vessel is NOT classified as \"restricted in its ability to maneuver\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which vessel is NOT classified as restricted in its ability to maneuver?",
     "RULE TAGS": "Ror inland;Ror international;Ror 03g",
     "ANSWER 1": "A vessel picking up a navigation mark",
     "POINTS": 0,
@@ -7619,7 +7619,7 @@ const questionBank = [
   },
   {
     "Q #": 680,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which vessel is to be regarded as a vessel \"restricted in its ability to maneuver\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which vessel is to be regarded as a vessel restricted in its ability to maneuver?",
     "RULE TAGS": "Ror inland;Ror international;Ror 03g",
     "ANSWER 1": "A vessel fishing with trawls",
     "POINTS": 0,
@@ -8087,13 +8087,13 @@ const questionBank = [
   },
   {
     "Q #": 716,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 12. You are on vessel \"A\" pushing a barge ahead and meeting vessel \"B\" as shown. How should the vessels pass?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 12. You are on vessel A pushing a barge ahead and meeting vessel B as shown. How should the vessels pass?",
     "RULE TAGS": "Ror inland;Ror international;Ror 14",
     "ANSWER 1": "Both vessels must alter course to starboard and pass port to port.",
     "POINTS": 100,
     "ANSWER 2": "Both vessels must alter course to port and pass starboard to starboard.",
     "POINTS.1": 0,
-    "ANSWER 3": "Vessel \"A\" should maintain course and vessel \"B\" alter course.",
+    "ANSWER 3": "Vessel A should maintain course and vessel B alter course.",
     "POINTS.2": 0,
     "ANSWER 4": "The vessels should determine which will alter course by sounding whistle signals.",
     "POINTS.3": 0
@@ -8490,7 +8490,7 @@ const questionBank = [
   },
   {
     "Q #": 747,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel that is defined as \"restricted in its ability to maneuver\" is unable to keep out of the way of another vessel due to __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel that is defined as restricted in its ability to maneuver is unable to keep out of the way of another vessel due to __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 03g",
     "ANSWER 1": "her draft",
     "POINTS": 0,
@@ -8529,9 +8529,9 @@ const questionBank = [
   },
   {
     "Q #": 750,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND In Diagram 8, vessel \"A\" and vessel \"B\" (which is pushing ahead) are meeting head-on as shown. How must the vessels pass?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND In Diagram 8, vessel A and vessel B (which is pushing ahead) are meeting head-on as shown. How must the vessels pass?",
     "RULE TAGS": "Ror inland;Ror international;Ror 14",
-    "ANSWER 1": "Vessel \"A\" must alter course while vessel \"B\" continues on its present course.",
+    "ANSWER 1": "Vessel A must alter course while vessel B continues on its present course.",
     "POINTS": 0,
     "ANSWER 2": "The vessels should determine which will alter course by exchanging whistle signals.",
     "POINTS.1": 0,
@@ -8815,7 +8815,7 @@ const questionBank = [
   },
   {
     "Q #": 772,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel \"A\" sounds three short blasts on the whistle. This signal means that vessel \"A\" __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel A sounds three short blasts on the whistle. This signal means that vessel A __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 34a",
     "ANSWER 1": "intends to hold course and speed",
     "POINTS": 0,
@@ -9140,7 +9140,7 @@ const questionBank = [
   },
   {
     "Q #": 799,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which vessel is NOT to be regarded as \"restricted in its ability to maneuver\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which vessel is NOT to be regarded as restricted in its ability to maneuver?",
     "RULE TAGS": "Ror inland;Ror international;Ror 03g",
     "ANSWER 1": "A vessel transferring provisions while underway",
     "POINTS": 0,
@@ -9322,7 +9322,7 @@ const questionBank = [
   },
   {
     "Q #": 813,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A rigid replica of the International Code flag \"A\" may be shown by a vessel __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A rigid replica of the International Code flag A may be shown by a vessel __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 27e",
     "ANSWER 1": "pulling a submarine cable",
     "POINTS": 0,
@@ -9335,13 +9335,13 @@ const questionBank = [
   },
   {
     "Q #": 814,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 5. Vessel \"A\" is underway and pushing ahead when vessel \"B\" is sighted off the starboard bow as shown. Which statement is TRUE?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 5. Vessel A is underway and pushing ahead when vessel B is sighted off the starboard bow as shown. Which statement is TRUE?",
     "RULE TAGS": "Ror inland;Ror international;Ror 15",
-    "ANSWER 1": "Vessel \"A\" is the stand-on vessel because it is to the port side of vessel \"B\".",
+    "ANSWER 1": "Vessel A is the stand-on vessel because it is to the port side of vessel B.",
     "POINTS": 0,
-    "ANSWER 2": "Vessel \"A\" is the stand-on vessel because it is pushing ahead.",
+    "ANSWER 2": "Vessel A is the stand-on vessel because it is pushing ahead.",
     "POINTS.1": 0,
-    "ANSWER 3": "Vessel \"B\" is the stand-on vessel because it is to starboard of vessel \"A\".",
+    "ANSWER 3": "Vessel B is the stand-on vessel because it is to starboard of vessel A.",
     "POINTS.2": 100,
     "ANSWER 4": "Neither vessel is the stand-on vessel.",
     "POINTS.3": 0
@@ -9374,15 +9374,15 @@ const questionBank = [
   },
   {
     "Q #": 818,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 30. Vessels \"A\" and \"B\" are crossing as shown. Which statement is TRUE?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 30. Vessels A and B are crossing as shown. Which statement is TRUE?",
     "RULE TAGS": "Ror inland;Ror international;Ror 15",
     "ANSWER 1": "The vessels should pass starboard to starboard.",
     "POINTS": 0,
-    "ANSWER 2": "Vessel \"B\" should pass astern of vessel \"A\".",
+    "ANSWER 2": "Vessel B should pass astern of vessel A.",
     "POINTS.1": 0,
-    "ANSWER 3": "Vessel \"B\" should alter course to the right.",
+    "ANSWER 3": "Vessel B should alter course to the right.",
     "POINTS.2": 0,
-    "ANSWER 4": "Vessel \"A\" must keep clear of vessel \"B\".",
+    "ANSWER 4": "Vessel A must keep clear of vessel B.",
     "POINTS.3": 100
   },
   {
@@ -9491,7 +9491,7 @@ const questionBank = [
   },
   {
     "Q #": 828,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 38. You are underway on vessel \"B\" approaching vessel \"A\", as shown. You are unable to see any sidelights on vessel \"A\". This is a(n) __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 38. You are underway on vessel B approaching vessel A, as shown. You are unable to see any sidelights on vessel A. This is a(n) __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 13",
     "ANSWER 1": "meeting situation",
     "POINTS": 0,
@@ -10349,7 +10349,7 @@ const questionBank = [
   },
   {
     "Q #": 900,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Vessel \"A\" is on course 000°T. Vessel \"B\" is on a course such that it is involved in a head-on situation and is bearing 355°T, 2 miles away from vessel \"A\". To ensure a safe passing, vessel \"A\" should __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Vessel A is on course 000°T. Vessel B is on a course such that it is involved in a head-on situation and is bearing 355°T, 2 miles away from vessel A. To ensure a safe passing, vessel A should __________.",
     "RULE TAGS": "Ror international;Ror inland;Ror 14",
     "ANSWER 1": "maintain course",
     "POINTS": 0,
@@ -10362,7 +10362,7 @@ const questionBank = [
   },
   {
     "Q #": 901,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND What is a vessel \"restricted in its ability to maneuver\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND What is a vessel restricted in its ability to maneuver?",
     "RULE TAGS": "Ror inland;Ror international;Ror 03g",
     "ANSWER 1": "A vessel not under command",
     "POINTS": 0,
@@ -10674,13 +10674,13 @@ const questionBank = [
   },
   {
     "Q #": 926,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND You are on vessel \"A\" in Diagram 32, and hear vessel \"B\" sound a signal indicating its intention to overtake you. You feel it is not safe for vessel \"B\" to overtake you at the present time. You should __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND You are on vessel A in Diagram 32, and hear vessel B sound a signal indicating its intention to overtake you. You feel it is not safe for vessel B to overtake you at the present time. You should __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 34d;Ror 34c",
     "ANSWER 1": "sound five or more short rapid blasts",
     "POINTS": 100,
     "ANSWER 2": "sound two short blasts",
     "POINTS.1": 0,
-    "ANSWER 3": "not answer the whistle signal from vessel \"B\"",
+    "ANSWER 3": "not answer the whistle signal from vessel B",
     "POINTS.2": 0,
     "ANSWER 4": "sound three blasts of the whistle",
     "POINTS.3": 0
@@ -10713,13 +10713,13 @@ const questionBank = [
   },
   {
     "Q #": 929,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 5. As shown, vessel \"A\", which is pushing ahead, and vessel \"B\" are crossing. Which is the stand-on vessel?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 5. As shown, vessel A, which is pushing ahead, and vessel B are crossing. Which is the stand-on vessel?",
     "RULE TAGS": "Ror inland;Ror international;Ror 15",
-    "ANSWER 1": "Vessel \"A\" is the stand-on vessel because it is to port of vessel \"B\".",
+    "ANSWER 1": "Vessel A is the stand-on vessel because it is to port of vessel B.",
     "POINTS": 0,
-    "ANSWER 2": "Vessel \"A\" is the stand-on vessel because it is pushing ahead.",
+    "ANSWER 2": "Vessel A is the stand-on vessel because it is pushing ahead.",
     "POINTS.1": 0,
-    "ANSWER 3": "Vessel \"B\" is the stand-on vessel because it is to starboard of vessel \"A\".",
+    "ANSWER 3": "Vessel B is the stand-on vessel because it is to starboard of vessel A.",
     "POINTS.2": 100,
     "ANSWER 4": "Neither vessel is the stand-on vessel in this situation.",
     "POINTS.3": 0
@@ -11194,7 +11194,7 @@ const questionBank = [
   },
   {
     "Q #": 969,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel showing a rigid replica of the International Code flag \"A\" is engaged in __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel showing a rigid replica of the International Code flag A is engaged in __________.",
     "RULE TAGS": "Ror 27a;Ror inland;Ror international",
     "ANSWER 1": "diving operations",
     "POINTS": 100,
@@ -11870,15 +11870,15 @@ const questionBank = [
   },
   {
     "Q #": 1021,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 12. Vessel \"A\" (towing) and vessel \"B\" are meeting as shown. In this situation, which statement is TRUE?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 12. Vessel A (towing) and vessel B are meeting as shown. In this situation, which statement is TRUE?",
     "RULE TAGS": "Ror inland;Ror international;Ror 14",
     "ANSWER 1": "Both vessels should alter course to starboard and pass port to port.",
     "POINTS": 100,
     "ANSWER 2": "Both vessels should alter course to port and pass starboard to starboard.",
     "POINTS.1": 0,
-    "ANSWER 3": "Vessel \"A\" should hold course while vessel \"B\" alters course to starboard.",
+    "ANSWER 3": "Vessel A should hold course while vessel B alters course to starboard.",
     "POINTS.2": 0,
-    "ANSWER 4": "Vessel \"A\" is the stand-on in this situation.",
+    "ANSWER 4": "Vessel A is the stand-on in this situation.",
     "POINTS.3": 0
   },
   {
@@ -11922,11 +11922,11 @@ const questionBank = [
   },
   {
     "Q #": 1027,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagam 42. Two power-driven vessels are crossing as shown. Vessel \"A\" sounds three short blasts on the whistle. This signal means that vessel \"A\" __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagam 42. Two power-driven vessels are crossing as shown. Vessel A sounds three short blasts on the whistle. This signal means that vessel A __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 34a",
     "ANSWER 1": "intends to hold course and speed",
     "POINTS": 0,
-    "ANSWER 2": "is uncertain about the actions of \"B\"",
+    "ANSWER 2": "is uncertain about the actions of B",
     "POINTS.1": 0,
     "ANSWER 3": "proposes to cross ahead of the other vessel",
     "POINTS.2": 0,
@@ -11935,7 +11935,7 @@ const questionBank = [
   },
   {
     "Q #": 1029,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND What determines if a vessel is \"restricted in its ability to maneuver\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND What determines if a vessel is restricted in its ability to maneuver?",
     "RULE TAGS": "Ror inland;Ror international;Ror 03g",
     "ANSWER 1": "Whether or not all of the vessel's control equipment is in working order",
     "POINTS": 0,
@@ -12013,13 +12013,13 @@ const questionBank = [
   },
   {
     "Q #": 1036,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 32. You are on vessel \"A\", as shown and hear vessel \"B\" sound a signal indicating their intention to overtake you. You feel it is not safe for vessel \"B\" to overtake you at the present time. You should _______.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 32. You are on vessel A, as shown and hear vessel B sound a signal indicating their intention to overtake you. You feel it is not safe for vessel B to overtake you at the present time. You should _______.",
     "RULE TAGS": "Ror inland;Ror international;Ror 34d;Ror 13;Ror 34c",
     "ANSWER 1": "sound two short blasts",
     "POINTS": 0,
     "ANSWER 2": "sound five or more short and rapid blasts",
     "POINTS.1": 100,
-    "ANSWER 3": "not answer the whistle signal from vessel \"B\"",
+    "ANSWER 3": "not answer the whistle signal from vessel B",
     "POINTS.2": 0,
     "ANSWER 4": "sound three blasts of the whistle",
     "POINTS.3": 0
@@ -12156,7 +12156,7 @@ const questionBank = [
   },
   {
     "Q #": 1050,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND What is NOT a vessel \"restricted in its ability to maneuver\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND What is NOT a vessel restricted in its ability to maneuver?",
     "RULE TAGS": "Ror inland;Ror international;Ror 03g",
     "ANSWER 1": "A vessel laying engaged in laying submarine cable",
     "POINTS": 0,
@@ -12728,7 +12728,7 @@ const questionBank = [
   },
   {
     "Q #": 1107,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which craft is a \"power-driven vessel\" under the Rules of the Road?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which craft is a power-driven vessel under the Rules of the Road?",
     "RULE TAGS": "Ror inland;Ror international;Ror 03b",
     "ANSWER 1": "An auxiliary sailing vessel, using its engine",
     "POINTS": 0,
@@ -12741,7 +12741,7 @@ const questionBank = [
   },
   {
     "Q #": 1108,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel is \"in sight\" of another vessel when it __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel is in sight of another vessel when it __________.",
     "RULE TAGS": "Ror 03k;Ror inland;Ror international",
     "ANSWER 1": "can be observed by radar",
     "POINTS": 0,
@@ -12754,9 +12754,9 @@ const questionBank = [
   },
   {
     "Q #": 1109,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which statement is TRUE concerning a \"vessel engaged in fishing\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which statement is TRUE concerning a vessel engaged in fishing?",
     "RULE TAGS": "Ror inland;Ror international;Ror 03d",
-    "ANSWER 1": "The vessel is classified as \"restricted in its ability to maneuver\".",
+    "ANSWER 1": "The vessel is classified as restricted in its ability to maneuver.",
     "POINTS": 0,
     "ANSWER 2": "Her gear will not affect the vessel's maneuverability.",
     "POINTS.1": 0,
@@ -12767,7 +12767,7 @@ const questionBank = [
   },
   {
     "Q #": 1110,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND To be considered \"engaged in fishing\" under the Rules, a vessel must be __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND To be considered engaged in fishing under the Rules, a vessel must be __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 03d",
     "ANSWER 1": "power-driven",
     "POINTS": 0,
@@ -12806,7 +12806,7 @@ const questionBank = [
   },
   {
     "Q #": 1113,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel \"restricted in its ability to maneuver\" is one which __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel restricted in its ability to maneuver is one which __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 03g",
     "ANSWER 1": "through some exceptional circumstance is unable to maneuver as required by the Rules",
     "POINTS": 0,
@@ -12819,7 +12819,7 @@ const questionBank = [
   },
   {
     "Q #": 1114,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND What determines if a vessel is \"restricted in its ability to maneuver\"?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND What determines if a vessel is restricted in its ability to maneuver?",
     "RULE TAGS": "Ror inland;Ror international;Ror 03g",
     "ANSWER 1": "Whether or not all of the vessel's control equipment is in working order",
     "POINTS": 0,
@@ -12832,7 +12832,7 @@ const questionBank = [
   },
   {
     "Q #": 1115,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel is considered to be \"restricted in its ability to maneuver\" under the Rules if it is __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel is considered to be restricted in its ability to maneuver under the Rules if it is __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 03g",
     "ANSWER 1": "at anchor",
     "POINTS": 0,
@@ -12845,7 +12845,7 @@ const questionBank = [
   },
   {
     "Q #": 1117,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which vessel is \"underway\" according to the Rules?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Which vessel is underway according to the Rules?",
     "RULE TAGS": "Ror 03i;Ror inland;Ror international",
     "ANSWER 1": "A vessel made fast to a single point mooring buoy",
     "POINTS": 0,
@@ -12897,7 +12897,7 @@ const questionBank = [
   },
   {
     "Q #": 1121,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND In determining \"safe speed\", the Rules list all of the following as factors which must be taken into account EXCEPT the __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND In determining safe speed, the Rules list all of the following as factors which must be taken into account EXCEPT the __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 06",
     "ANSWER 1": "limitations of radar equipment",
     "POINTS": 0,
@@ -13196,7 +13196,7 @@ const questionBank = [
   },
   {
     "Q #": 1148,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND What would be a \"special circumstance\" under the Rules?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND What would be a special circumstance under the Rules?",
     "RULE TAGS": "Ror 02;Ror inland;Ror international",
     "ANSWER 1": "Vessel at anchor",
     "POINTS": 0,
@@ -13768,7 +13768,7 @@ const questionBank = [
   },
   {
     "Q #": 1203,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Vessel \"A\" is overtaking vessel \"B\" on open waters and will pass without changing course. Vessel \"A\" __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Vessel A is overtaking vessel B on open waters and will pass without changing course. Vessel A __________.",
     "RULE TAGS": "Ror 09ei;Ror international;Ror 34c",
     "ANSWER 1": "should sound two short blasts",
     "POINTS": 0,
@@ -13807,7 +13807,7 @@ const questionBank = [
   },
   {
     "Q #": 1206,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 36. In international waters, you are on Vessel \"I\" in the situation as shown. Vessel \"II\" sounds one short blast. Which action should you take?",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 36. In international waters, you are on Vessel I in the situation as shown. Vessel II sounds one short blast. Which action should you take?",
     "RULE TAGS": "Ror international;Ror 34a;Ror 15",
     "ANSWER 1": "Sound one short blast and hold course and speed.",
     "POINTS": 0,
@@ -13911,13 +13911,13 @@ const questionBank = [
   },
   {
     "Q #": 1215,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Which statement applies to a vessel \"constrained by its draft\"?",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Which statement applies to a vessel constrained by its draft?",
     "RULE TAGS": "Ror 03h;Ror international",
     "ANSWER 1": "It is severely restricted in its ability to change its course because of its draft in relation to the available depth of water.",
     "POINTS": 100,
     "ANSWER 2": "The term applies only to vessels in marked channels.",
     "POINTS.1": 0,
-    "ANSWER 3": "It is designated as a \"vessel restricted in its ability to maneuver\".",
+    "ANSWER 3": "It is designated as a vessel restricted in its ability to maneuver.",
     "POINTS.2": 0,
     "ANSWER 4": "The vessel must be over 100 meters in length.",
     "POINTS.3": 0
@@ -13989,7 +13989,7 @@ const questionBank = [
   },
   {
     "Q #": 1221,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 17. Vessel \"A\" is overtaking vessel \"B\" on open waters as shown and will pass without changing course. Vessel \"A\" __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 17. Vessel A is overtaking vessel B on open waters as shown and will pass without changing course. Vessel A __________.",
     "RULE TAGS": "Ror international;Ror 34c",
     "ANSWER 1": "should sound two short blasts",
     "POINTS": 0,
@@ -14093,7 +14093,7 @@ const questionBank = [
   },
   {
     "Q #": 1229,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Which vessel is NOT regarded as being \"restricted in its ability to maneuver\"?",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Which vessel is NOT regarded as being restricted in its ability to maneuver?",
     "RULE TAGS": "Ror 03h;Ror international",
     "ANSWER 1": "A vessel servicing an aid to navigation",
     "POINTS": 0,
@@ -14158,7 +14158,7 @@ const questionBank = [
   },
   {
     "Q #": 1235,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Vessel \"A\" is overtaking vessel \"B\" on open waters and will pass without changing course. Vessel \"A\" should __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Vessel A is overtaking vessel B on open waters and will pass without changing course. Vessel A should __________.",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "sound two prolonged blasts followed by two short blasts",
     "POINTS": 0,
@@ -14171,7 +14171,7 @@ const questionBank = [
   },
   {
     "Q #": 1236,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 17. Vessel \"A\" is overtaking vessel \"B\" on open waters as shown and will pass without changing course. Vessel \"A\" __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Refer to Diagram 17. Vessel A is overtaking vessel B on open waters as shown and will pass without changing course. Vessel A __________.",
     "RULE TAGS": "Ror international;Ror 34c",
     "ANSWER 1": "need not sound any whistle signals",
     "POINTS": 100,
@@ -14392,20 +14392,20 @@ const questionBank = [
   },
   {
     "Q #": 1253,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Which statement applies to a vessel \"constrained by its draft\"?",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Which statement applies to a vessel constrained by its draft?",
     "RULE TAGS": "Ror 03h;Ror international",
     "ANSWER 1": "The term only applies to vessels in narrow channels.",
     "POINTS": 0,
     "ANSWER 2": "It is severely restricted in its ability to change its course because of its draft in relation to the available depth and width of navigable water.",
     "POINTS.1": 100,
-    "ANSWER 3": "It is designated as a \"vessel restricted in its ability to maneuver\".",
+    "ANSWER 3": "It is designated as a vessel restricted in its ability to maneuver.",
     "POINTS.2": 0,
     "ANSWER 4": "The vessel must be over 100 meters in length.",
     "POINTS.3": 0
   },
   {
     "Q #": 1254,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Which statement is TRUE concerning a vessel \"constrained by its draft\"?",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Which statement is TRUE concerning a vessel constrained by its draft?",
     "RULE TAGS": "Ror 03h;Ror international",
     "ANSWER 1": "It is hampered because of its work.",
     "POINTS": 0,
@@ -14418,7 +14418,7 @@ const questionBank = [
   },
   {
     "Q #": 1255,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Which vessel is NOT \"restricted in its ability to maneuver\"?",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Which vessel is NOT restricted in its ability to maneuver?",
     "RULE TAGS": "Ror 03h;Ror international;Ror 03g",
     "ANSWER 1": "A vessel servicing an aid to navigation",
     "POINTS": 0,
