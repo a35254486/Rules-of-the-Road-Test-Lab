@@ -1,1008 +1,1347 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rules of the Road Practice Practice Platform</title>
-    <style>
-        :root {
-            --primary-dark: #090d16;
-            --primary-dark2: #0f1524;
-            --navy-black: #08262C;
-            --navy-blue: #003B4F;
-            --navy-grey: #C6CCD0;
-            --navy-yellow: #E8B00F;
-            --navy-teal: #088199;
-            --accent-hover: #115e59;
-            --navy-white: #ffffff;
-            --text-dark-blue: #0f172a;
-            --border-light: #e2e8f0;
-            --border-dark: #334155;
-            --dark-grey: #444444;
+/**
+ * Rules of the Road Practice Assessment Engine
+ * Department of War (DoW) Mission Support - IL5 Optimizations
+ */
+
+// Core state containers
+let activeAssessmentPool = [];
+let currentQuestionIndex = 0;
+let userSelectedAnswers = []; // Holds selected option texts
+let isImmediateFeedbackEnabled = false;
+let isTimedModeActive = false;
+let countdownTimerInterval = null;
+let secondsRemainingInTimer = 3600;
+
+// Bucket parameters
+const bucketWeightings = {
+    1: 0.06, // General (Rules 1-3)
+    2: 0.16, // Steering & Sailing (Rules 4-10)
+    3: 0.16, // Steering & Sailing (Rules 11-18)
+    4: 0.06, // Steering & Sailing (Rule 19)
+    5: 0.28, // Lights and Shapes (Rules 20-31)
+    6: 0.28  // Sound and Light Signals (Rules 32-37)
+};
+
+/**
+ * Formats sloppy raw rule tag strings into human-readable text.
+ * Converts "Ror inland" -> "Inland", "Ror international" -> "International",
+ * and "Ror [#][suffix]" -> "Rule [#][suffix]" (e.g. "Ror 35g" -> "Rule 35g").
+ * Re-joins them cleanly with commas and spaces.
+ */
+function formatRuleTags(rawTagString) {
+    if (!rawTagString) return "General COLREGS Rules";
+    
+    // Split the raw string by commas or semicolons
+    let tokens = rawTagString.split(/[,;]+/).map(t => t.trim()).filter(t => t.length > 0);
+    
+    // Fallback: if there are no commas but multiple "ror" mentions, split on word boundaries
+    if (tokens.length === 1 && (rawTagString.toLowerCase().match(/ror/g) || []).length > 1) {
+        tokens = rawTagString.split(/(?=ror)/i).map(t => t.trim()).filter(t => t.length > 0);
+    }
+    
+    const formattedTokens = tokens.map(token => {
+        // 1. "Ror inland" -> "Inland" (case-insensitive)
+        if (/ror\s+inland/i.test(token)) {
+            return "Inland";
         }
-        body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-            background-color: var(--primary-dark);
-            color: var(--navy-grey);
+        // 2. "Ror international" -> "International" (case-insensitive)
+        if (/ror\s+international/i.test(token)) {
+            return "International";
+        }
+        // 3. "Ror [start]-[end]" -> "Rules [start]-[end]" (supports sub-rules like 20a-20c)
+        const rangeMatch = token.match(/ror\s*(\d+[a-z]*)-(\d+[a-z]*)/i);
+        if (rangeMatch) {
+            return `Rules ${rangeMatch[1]}-${rangeMatch[2]}`;
+        }
+        // 4. "Ror [#][suffix]" -> "Rule [#][suffix]" (supports sub-rules like 35g, 35h)
+        const ruleMatch = token.match(/ror\s*(\d+[a-z]*)/i);
+        if (ruleMatch) {
+            return `Rule ${ruleMatch[1]}`;
+        }
+        
+        return token;
+    });
+    
+    // Join all formatted segments back together with a clean comma and space
+    return formattedTokens.join(", ");
+}
+
+const categoryNames = {
+    1: "Part A - General",
+    2: "Part B - Steering & Sailing (Conduct of Vessels in Any Condition of Visibility)",
+    3: "Part B - Steering & Sailing (Conduct of Vessels in Sight of One Another)",
+    4: "Part B - Steering & Sailing (Conduct of Vessels in Restricted Visibility)",
+    5: "Part C - Lights and Shapes",
+    6: "Part D - Sound and Light Signals"
+};
+
+const bucketShortNames = {
+    1: "A",
+    2: "B1",
+    3: "B2",
+    4: "B3",
+    5: "C",
+    6: "D"
+};
+
+/**
+ * Parses numeric rule designations from question data.
+ * Safely evaluates individual numbers, hyphenated ranges (e.g. 20-31), and formatting quirks.
+ */
+function extractRuleTags(question) {
+    const rawTagString = question["RULE TAGS"];
+    if (!rawTagString) return [];
+    
+    const parsedRules = new Set();
+    const sanitisedString = rawTagString.replace(/\s+/g, '');
+    
+    // Evaluate ranges: e.g. 20-31
+    const rangeEvaluator = /(\d+)-(\d+)/g;
+    let rangeMatch;
+    while ((rangeMatch = rangeEvaluator.exec(sanitisedString)) !== null) {
+        const start = parseInt(rangeMatch[1], 10);
+        const end = parseInt(rangeMatch[2], 10);
+        for (let i = start; i <= end; i++) {
+            parsedRules.add(i);
+        }
+    }
+    
+    // Capture individual rules
+    const numberEvaluator = /\d+/g;
+    let numberMatch;
+    while ((numberMatch = numberEvaluator.exec(sanitisedString)) !== null) {
+        parsedRules.add(parseInt(numberMatch[0], 10));
+    }
+    
+    return Array.from(parsedRules);
+}
+
+/**
+ * Maps parsed rules to the correct category buckets (1-6).
+ * Support multi-bucket overlap tagging.
+ */
+function identifyQuestionBuckets(question) {
+    const rules = extractRuleTags(question);
+    if (rules.length === 0) return [];
+    
+    const buckets = new Set();
+    rules.forEach(rule => {
+        if (rule >= 1 && rule <= 3) buckets.add(1);
+        if (rule >= 4 && rule <= 10) buckets.add(2);
+        if (rule >= 11 && rule <= 18) buckets.add(3);
+        if (rule === 19) buckets.add(4);
+        if (rule >= 20 && rule <= 31) buckets.add(5);
+        if (rule >= 32 && rule <= 37) buckets.add(6);
+    });
+    return Array.from(buckets);
+}
+
+/**
+ * Implements Proportional Scaling and Guaranteed Representation algorithm
+ */
+function assembleProportionalQuiz(targetSize, chosenBuckets) {
+    // 1. Group the question bank by matching category buckets
+    const bucketPools = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
+    
+    questionBank.forEach((question, originalIndex) => {
+        const itemCopy = { ...question, indexRef: originalIndex };
+        const associatedBuckets = identifyQuestionBuckets(itemCopy);
+        associatedBuckets.forEach(b => {
+            if (bucketPools[b]) {
+                bucketPools[b].push(itemCopy);
+            }
+        });
+    });
+    // 2. Filter down to selected active buckets
+    const activeBucketKeys = Object.keys(chosenBuckets).map(Number).filter(k => chosenBuckets[k]);
+    if (activeBucketKeys.length === 0) return [];
+    // Calculate sum of active weights
+    let sumActiveWeights = 0;
+    activeBucketKeys.forEach(k => { sumActiveWeights += bucketWeightings[k]; });
+    // 3. Scale and distribute quotas using Math.round
+    const finalQuotas = {};
+    let runningTotalAllocated = 0;
+    activeBucketKeys.forEach(k => {
+        const proportionalPercentage = bucketWeightings[k]/sumActiveWeights;
+        let bucketQuota = Math.round(targetSize * proportionalPercentage);
+        
+        // Guaranteed representation safety
+        if (bucketQuota < 1) {
+            bucketQuota = 1;
+        }
+        finalQuotas[k] = bucketQuota;
+        runningTotalAllocated += bucketQuota;
+    });
+    // 4. Adjust quota math conflicts to fit exact size
+    let attempts = 0;
+    while (runningTotalAllocated !== targetSize && attempts < 100) {
+        attempts++;
+        if (runningTotalAllocated > targetSize) {
+            // Find active bucket with score count > 1 and reduce
+            const reduceKeys = activeBucketKeys.filter(k => finalQuotas[k] > 1);
+            if (reduceKeys.length === 0) break;
+            reduceKeys.sort((a, b) => finalQuotas[b] - finalQuotas[a]); // Sort descending to cut from largest
+            finalQuotas[reduceKeys[0]]--;
+            runningTotalAllocated--;
+        } else {
+            // Add quota back to largest active buckets
+            const increaseKeys = [...activeBucketKeys].sort((a, b) => finalQuotas[b] - finalQuotas[a]);
+            finalQuotas[increaseKeys[0]]++;
+            runningTotalAllocated++;
+        }
+    }
+    // 5. Select random unique questions per bucket
+    const selectedQuestionMap = new Map(); // Keep globally unique
+    const selectedAssessmentPool = [];
+    activeBucketKeys.forEach(k => {
+        const currentPool = shuffleArray([...bucketPools[k]]);
+        const quota = finalQuotas[k];
+        let chosenFromBucket = 0;
+        for (let i = 0; i < currentPool.length; i++) {
+            if (chosenFromBucket >= quota) break;
+            const q = currentPool[i];
+            
+            if (!selectedQuestionMap.has(q.indexRef)) {
+                selectedQuestionMap.set(q.indexRef, q);
+                selectedAssessmentPool.push({ ...q, chosenUnderBucket: k });
+                chosenFromBucket++;
+            }
+        }
+        // Fallback: If pool ran dry of unique questions, duplicate from pool as safeguard
+        if (chosenFromBucket < quota) {
+            for (let i = 0; i < currentPool.length; i++) {
+                if (chosenFromBucket >= quota) break;
+                const q = currentPool[i];
+                selectedAssessmentPool.push({ ...q, chosenUnderBucket: k });
+                chosenFromBucket++;
+            }
+        }
+    });
+   
+    // --- Console Validation Audit ---
+    const auditData = {};
+    activeBucketKeys.forEach(k => {
+        const actualCount = selectedAssessmentPool.filter(q => q.chosenUnderBucket === k).length;
+        auditData[`Bucket ${k} (${categoryNames[k].substring(0, 15)}...)`] = {
+            "Assigned Quota": finalQuotas[k],
+            "Actual Deployed": actualCount,
+            "Status": finalQuotas[k] === actualCount ? "✅ MATCH" : "⚠️ MISMATCH"
+        };
+    });
+    console.log(`%c[Quota Validator] Target Test Size: ${targetSize}`, "color: #E8B00F; font-weight: bold; font-size: 13px;");
+    console.table(auditData);
+    // Final shuffle so category order isn't sequential
+    return shuffleArray(selectedAssessmentPool);
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+/**
+ * Initializes and transitions dashboard to active testing phase
+ */
+function initiateAssessment() {
+    if (typeof questionBank === 'undefined' || !Array.isArray(questionBank) || questionBank.length === 0) {
+        document.getElementById("missing-db-alert").classList.remove("hidden");
+        return;
+    }
+    const sizeSlider = document.getElementById("quiz-size-slider");
+    const immediateFeedbackCheckbox = document.getElementById("immediate-feedback-checkbox");
+    const timedModeCheckbox = document.getElementById("timed-mode-checkbox");
+    
+    isTimedModeActive = timedModeCheckbox.checked;
+    isImmediateFeedbackEnabled = isTimedModeActive ? false : immediateFeedbackCheckbox.checked;
+    let targetSize = parseInt(sizeSlider.value, 10);
+    const chosenBuckets = {};
+    
+    const checkboxes = document.querySelectorAll(".bucket-toggle-checkbox");
+    checkboxes.forEach(chk => {
+        const bNum = parseInt(chk.getAttribute("data-bucket"), 10);
+        chosenBuckets[bNum] = chk.checked;
+    });
+    if (isTimedModeActive) {
+        targetSize = 50;
+        // Forces all buckets on for timed simulation
+        for (let b = 1; b <= 6; b++) chosenBuckets[b] = true;
+    }
+    activeAssessmentPool = assembleProportionalQuiz(targetSize, chosenBuckets);
+    if (activeAssessmentPool.length === 0) {
+        alert("Configuration Error: Active configuration produced empty pool. Activate at least one category bucket.");
+        return;
+    }
+    // Reset state
+    currentQuestionIndex = 0;
+    userSelectedAnswers = new Array(activeAssessmentPool.length).fill(null);
+    
+    // UI Screen adjustments
+    document.getElementById("view-dashboard").classList.add("hidden");
+    document.getElementById("view-testing").classList.remove("hidden");
+    document.getElementById("view-results").classList.add("hidden");
+    if (isTimedModeActive) {
+        document.getElementById("timer-badge").classList.remove("hidden");
+        triggerCountdown();
+    } else {
+        document.getElementById("timer-badge").classList.add("hidden");
+        clearInterval(countdownTimerInterval);
+    }
+    loadActiveQuestion();
+    renderNavigatorSidebar();
+}
+
+/**
+ * Updates the progress bar based on the number of answered questions,
+ * rather than the current question index.
+ */
+function updateProgressIndicators() {
+    const totalQuestions = activeAssessmentPool.length;
+    // Count how many questions have actually been answered
+    const answeredCount = userSelectedAnswers.filter(ans => ans !== null).length;
+    
+    // Keep the text showing the current viewing position
+    document.getElementById("progress-numerical").innerText = `Question ${currentQuestionIndex + 1} of ${totalQuestions}`;
+    
+    // Fill the bar based on the percentage of questions answered
+    const fillPercent = (answeredCount / totalQuestions) * 100;
+    document.getElementById("progress-bar-fill").style.width = `${fillPercent}%`;
+}
+
+/* Question card rendering engine */
+function loadActiveQuestion() {
+    const question = activeAssessmentPool[currentQuestionIndex];
+    
+    // Track indicators
+    updateProgressIndicators();
+    // Render Question Text
+    document.getElementById("question-text-card").innerText = question["QUESTION TEXT"];
+    // --- DYNAMIC DIAGRAM RESOLUTION ---
+    const imgElement = document.getElementById("quiz-diagram");
+    if (imgElement) {
+        // Matches "DIAGRAM <number>" or "DIAGRAM [<number>]" with or without markdown styling
+        const match = question["QUESTION TEXT"].match(/Diagram\s*(?:\\?\*|\\|\[)*(\d+)/i);
+        if (match) {
+            const diagramNum = match[1];
+            const normalizedKey = `DIAGRAM ${diagramNum}`; // e.g. "DIAGRAM 1"
+            
+            // Check if diagramData from diagrams.js exists and has this image
+            if (typeof diagramData !== 'undefined' && diagramData[normalizedKey]) {
+                imgElement.src = diagramData[normalizedKey];
+                imgElement.style.display = "block"; // Show image
+            } else {
+                console.warn(`Could not find diagram data for "${normalizedKey}"`);
+                imgElement.style.display = "none";
+                imgElement.src = "";
+            }
+        } else {
+            // Hide image completely if no diagram is mentioned in this question
+            imgElement.style.display = "none";
+            imgElement.src = "";
+        }
+    }
+    // ----------------------------------
+    // Options mapping
+    const optionsContainer = document.getElementById("options-list");
+    optionsContainer.innerHTML = "";
+    const keySchema = [
+        { textKey: "ANSWER 1", pointsKey: "POINTS" },
+        { textKey: "ANSWER 2", pointsKey: "POINTS.1" },
+        { textKey: "ANSWER 3", pointsKey: "POINTS.2" },
+        { textKey: "ANSWER 4", pointsKey: "POINTS.3" }
+    ];
+    // Find correct answer
+    let correctText = "";
+    keySchema.forEach(opt => {
+        if (question[opt.pointsKey] === 100) {
+            correctText = question[opt.textKey];
+        }
+    });
+    const alreadyAnswered = userSelectedAnswers[currentQuestionIndex] !== null;
+    const selectedAnswerText = userSelectedAnswers[currentQuestionIndex];
+    keySchema.forEach(opt => {
+        const optionText = question[opt.textKey];
+        if (optionText && optionText.trim() !== "") {
+            const btn = document.createElement("button");
+            btn.className = "option-button";
+            btn.innerText = optionText;
+            // Handle UI states for historical feedback/selections
+            if (alreadyAnswered) {
+                btn.disabled = true;
+                if (isImmediateFeedbackEnabled) {
+                    if (optionText === correctText) {
+                        btn.classList.add("correct");
+                    } else if (optionText === selectedAnswerText) {
+                        btn.classList.add("wrong");
+                    }
+                } else {
+                    if (optionText === selectedAnswerText) {
+                        btn.classList.add("selected");
+                    }
+                }
+            } else {
+                btn.onclick = () => selectOption(btn, optionText, correctText);
+            }
+            optionsContainer.appendChild(btn);
+        }
+    });
+    // Show/Hide Explanation for Immediate Feedback Practice
+    const explanationDiv = document.getElementById("explanation-box");
+    const explanationText = document.getElementById("explanation-text");
+    
+    if (isImmediateFeedbackEnabled && alreadyAnswered) {
+        explanationDiv.classList.remove("hidden");
+        
+        // Formats and cleans up the "Ror" designations cleanly
+        const ruleTags = question["RULE TAGS"] ? `Rule(s) Applied: ${formatRuleTags(question["RULE TAGS"])}` : "General COLREGS Rules";
+        const explanationBody = question["EXPLANATION"] || `Correct answer is: ${correctText}`;
+        
+        explanationText.innerHTML = `
+            <div style="color: var(--navy-yellow); font-weight: bold; margin-bottom: 8px;">${ruleTags}</div>
+            <div style="color: var(--navy-grey); font-size: 14px; line-height: 1.5;">${explanationBody}</div>
+        `;
+    } else {
+        explanationDiv.classList.add("hidden");
+    }
+    // Nav Footer adjustments
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    if (currentQuestionIndex === 0) {
+        prevBtn.classList.add("hidden");
+    } else {
+        prevBtn.classList.remove("hidden");
+    }
+    if (currentQuestionIndex === activeAssessmentPool.length - 1) {
+        nextBtn.innerText = isImmediateFeedbackEnabled || alreadyAnswered || !isImmediateFeedbackEnabled ? "Submit Assessment 🎖️" : "Next Question ▶";
+    } else {
+        nextBtn.innerText = "Next ▶";
+    }
+    // Navigation is always allowed
+    nextBtn.disabled = false;
+    if (alreadyAnswered) {
+        nextBtn.classList.add("btn-highlighted");
+    } else {
+        nextBtn.classList.remove("btn-highlighted");
+    }
+}
+
+/**
+ * Option selected event handler
+ */
+function selectOption(button, optionText, correctText) {
+    userSelectedAnswers[currentQuestionIndex] = optionText;
+    const alreadyAnswered = true;
+    const optionsContainer = document.getElementById("options-list");
+    const buttons = optionsContainer.getElementsByClassName("option-button");
+    if (isImmediateFeedbackEnabled) {
+        // Freeze and color immediately
+        for (let btn of buttons) {
+            btn.disabled = true;
+            if (btn.innerText === correctText) {
+                btn.classList.add("correct");
+            } else if (btn === button && optionText !== correctText) {
+                btn.classList.add("wrong");
+            }
+        }
+        
+        // Show explanation
+        const question = activeAssessmentPool[currentQuestionIndex];
+        const explanationDiv = document.getElementById("explanation-box");
+        const explanationText = document.getElementById("explanation-text");
+        explanationDiv.classList.remove("hidden");
+        
+        // Formats and cleans up the "Ror" designations cleanly
+        const ruleTags = question["RULE TAGS"] ? `Rule(s) Applied: ${formatRuleTags(question["RULE TAGS"])}` : "General COLREGS Rules";
+        const explanationBody = question["EXPLANATION"] || ``;
+        
+        explanationText.innerHTML = `
+            <div style="color: var(--navy-yellow); font-weight: bold; margin-bottom: 8px;">${ruleTags}</div>
+            <div style="color: var(--navy-grey); font-size: 14px; line-height: 1.5;">${explanationBody}</div>
+        `;
+        document.getElementById("next-btn").disabled = false;
+    } else {
+        // Standard mode: highlight selection without showing correctness
+        for (let btn of buttons) {
+            btn.classList.remove("selected");
+        }
+        button.classList.add("selected");
+    }
+    renderNavigatorSidebar();
+    
+    // UPDATE PROGRESS BAR IMMEDIATELY UPON SELECTION
+    updateProgressIndicators();
+}
+
+/**
+ * Sidebar Navigation Generator
+ */
+function renderNavigatorSidebar() {
+    const grid = document.getElementById("question-grid-container");
+    grid.innerHTML = "";
+    activeAssessmentPool.forEach((q, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "q-grid-btn";
+        btn.innerText = idx + 1;
+        if (idx === currentQuestionIndex) {
+            btn.classList.add("current");
+        } else if (userSelectedAnswers[idx] !== null) {
+            btn.classList.add("answered");
+            
+            // Visual helper if in immediate feedback mode
+            if (isImmediateFeedbackEnabled) {
+                const correctText = getCorrectAnswerText(q);
+                if (userSelectedAnswers[idx] === correctText) {
+                    btn.classList.add("correct-fb");
+                } else {
+                    btn.classList.add("wrong-fb");
+                }
+            }
+        }
+        btn.onclick = () => jumpToQuestionIndex(idx);
+        grid.appendChild(btn);
+    });
+}
+
+function getCorrectAnswerText(q) {
+    const keySchema = [
+        { textKey: "ANSWER 1", pointsKey: "POINTS" },
+        { textKey: "ANSWER 2", pointsKey: "POINTS.1" },
+        { textKey: "ANSWER 3", pointsKey: "POINTS.2" },
+        { textKey: "ANSWER 4", pointsKey: "POINTS.3" }
+    ];
+    let correct = "";
+    keySchema.forEach(opt => {
+        if (q[opt.pointsKey] === 100) correct = q[opt.textKey];
+    });
+    return correct;
+}
+
+function jumpToQuestionIndex(idx) {
+    // Restriction check removed to allow completely free navigation via the sidebar
+    currentQuestionIndex = idx;
+    loadActiveQuestion();
+    renderNavigatorSidebar();
+}
+
+function stepPrevious() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadActiveQuestion();
+        renderNavigatorSidebar();
+    }
+}
+
+function stepNext() {
+    // Restriction check removed to allow skipping questions using the Next button
+    if (currentQuestionIndex < activeAssessmentPool.length - 1) {
+        currentQuestionIndex++;
+        loadActiveQuestion();
+        renderNavigatorSidebar();
+    } else {
+        submitCompletedAssessment();
+    }
+}
+
+/**
+ * Timer implementation for simulated examination
+ */
+function triggerCountdown() {
+    clearInterval(countdownTimerInterval);
+    secondsRemainingInTimer = 3600; // 60 mins
+    renderTimer();
+    
+    countdownTimerInterval = setInterval(() => {
+        secondsRemainingInTimer--;
+        renderTimer();
+        if (secondsRemainingInTimer <= 0) {
+            clearInterval(countdownTimerInterval);
+            alert("⏰ Timer Expired! Your assessment is submitting automatically.");
+            submitCompletedAssessment();
+        }
+    }, 1000);
+}
+
+function renderTimer() {
+    const mins = Math.floor(secondsRemainingInTimer / 60);
+    const secs = secondsRemainingInTimer % 60;
+    const timerBadge = document.getElementById("timer-badge");
+    if (timerBadge) {
+        timerBadge.innerText = `⏱️ Timer: ${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+}
+
+/**
+ * Score computation and dashboard metrics saving
+ */
+function submitCompletedAssessment() {
+    clearInterval(countdownTimerInterval);
+    // Compute Grading
+    let overallCorrect = 0;
+    const bucketScores = {
+        1: { correct: 0, total: 0, rules: {} },
+        2: { correct: 0, total: 0, rules: {} },
+        3: { correct: 0, total: 0, rules: {} },
+        4: { correct: 0, total: 0, rules: {} },
+        5: { correct: 0, total: 0, rules: {} },
+        6: { correct: 0, total: 0, rules: {} }
+    };
+    activeAssessmentPool.forEach((q, idx) => {
+        const userChoice = userSelectedAnswers[idx];
+        const correctText = getCorrectAnswerText(q);
+        const isCorrect = (userChoice === correctText);
+        if (isCorrect) {
+            overallCorrect++;
+        }
+        const bucketsAssociated = identifyQuestionBuckets(q);
+        const rulesAssociated = extractRuleTags(q);
+        bucketsAssociated.forEach(b => {
+            bucketScores[b].total++;
+            if (isCorrect) bucketScores[b].correct++;
+            rulesAssociated.forEach(r => {
+                if (verifyRuleInBucket(r, b)) {
+                    if (!bucketScores[b].rules[r]) {
+                        bucketScores[b].rules[r] = { correct: 0, total: 0 };
+                    }
+                    bucketScores[b].rules[r].total++;
+                    if (isCorrect) bucketScores[b].rules[r].correct++;
+                }
+            });
+        });
+    });
+    const scorePercentage = Math.round((overallCorrect / activeAssessmentPool.length) * 100);
+    const hasPassed = (scorePercentage >= 90); // 90% strict passing criteria
+    // Render results view elements
+    document.getElementById("view-testing").classList.add("hidden");
+    document.getElementById("view-results").classList.remove("hidden");
+    // Circular progress SVG logic
+    document.getElementById("score-percent-text").innerText = `${scorePercentage}%`;
+    document.getElementById("score-numerical-summary").innerText = `Correct answers: ${overallCorrect} / ${activeAssessmentPool.length}`;
+    
+    const ringFill = document.getElementById("score-ring-fill");
+    if (ringFill) {
+        const radius = ringFill.r.baseVal.value;
+        const circumference = radius * 2 * Math.PI;
+        ringFill.style.strokeDasharray = `${circumference} ${circumference}`;
+        const offset = circumference - (scorePercentage / 100) * circumference;
+        ringFill.style.strokeDashoffset = offset;
+    }
+    const badge = document.getElementById("score-pass-fail-badge");
+    if (hasPassed) {
+        badge.innerText = "PASS";
+        badge.className = "status-badge status-pass";
+    } else {
+        badge.innerText = "FAIL";
+        badge.className = "status-badge status-fail";
+    }
+    renderCollapsibleResultsTable(bucketScores);
+    // Save history data
+    savePerformanceHistory(overallCorrect, activeAssessmentPool.length, hasPassed, bucketScores);
+}
+
+function verifyRuleInBucket(r, b) {
+    if (b === 1) return r >= 1 && r <= 3;
+    if (b === 2) return r >= 4 && r <= 10;
+    if (b === 3) return r >= 11 && r <= 18;
+    if (b === 4) return r === 19;
+    if (b === 5) return r >= 20 && r <= 31;
+    if (b === 6) return r >= 32 && r <= 37;
+    return false;
+}
+
+function getBucketRulesDisplayRange(b) {
+    if (b === 1) return "1-3";
+    if (b === 2) return "4-10";
+    if (b === 3) return "11-18";
+    if (b === 4) return "19";
+    if (b === 5) return "20-31";
+    if (b === 6) return "32-37";
+    return "";
+}
+
+/**
+ * Renders expandable results performance breakdown
+ */
+function renderCollapsibleResultsTable(bucketScores) {
+    const tbody = document.getElementById("bucket-breakdown-body");
+    tbody.innerHTML = "";
+    for (let b = 1; b <= 6; b++) {
+        const data = bucketScores[b];
+        const countTested = data.total;
+        const percent = countTested > 0 ? Math.round((data.correct / countTested) * 100) : 0;
+        
+        let catColor = 'var(--navy-grey)';
+        if (countTested > 0) {
+            if (percent >= 90) catColor = '#48bb78';
+            else if (percent >= 80) catColor = '#ecc94b';
+            else catColor = '#e53e3e';
+        }
+        const rowHeader = document.createElement("tr");
+        rowHeader.className = "collapsible-header";
+        rowHeader.onclick = () => toggleDetailsRow(`rule-breakdown-${b}`, `icon-b-${b}`);
+        rowHeader.innerHTML = `
+            <td>
+                <span id="icon-b-${b}" class="collapse-icon">▶</span>
+                <strong>${categoryNames[b]}</strong>
+            </td>
+            <td>Rules ${getBucketRulesDisplayRange(b)}</td>
+            <td>${countTested > 0 ? `${data.correct} / ${countTested}` : '0 / 0'}</td>
+            <td><strong style="color: ${catColor}">${countTested > 0 ? `${percent}%` : '-'}</strong></td>
+        `;
+        tbody.appendChild(rowHeader);
+        // Nested breakdown
+        const rowDetails = document.createElement("tr");
+        rowDetails.id = `rule-breakdown-${b}`;
+        rowDetails.className = "rule-details-row hidden";
+        let nestedHtml = "";
+        const rulesTested = Object.keys(data.rules).map(Number).sort((a, b) => a - b);
+        
+        if (rulesTested.length > 0) {
+            rulesTested.forEach(r => {
+                const rCorrect = data.rules[r].correct;
+                const rTotal = data.rules[r].total;
+                const rPercent = Math.round((rCorrect / rTotal) * 100);
+                
+                let rColor = '#e53e3e';
+                if (rPercent >= 90) rColor = '#48bb78';
+                else if (rPercent >= 80) rColor = '#ecc94b';
+                nestedHtml += `
+                    <div class="rule-detail-item">
+                        <span>Rule ${r}</span>
+                        <span style="font-weight: bold; color: ${rColor}">${rCorrect} / ${rTotal} (${rPercent}%)</span>
+                    </div>
+                `;
+            });
+        } else {
+            nestedHtml = `<div style="color: var(--navy-grey); font-size:12px;">No specific rules under this category were assessed.</div>`;
+        }
+        rowDetails.innerHTML = `
+            <td colspan="4">
+                <div class="rule-details-container">
+                    <h4 style="margin: 0 0 6px 0; font-size: 13px; color: var(--navy-yellow);">Tested Rules Breakdown</h4>
+                    ${nestedHtml}
+                </div>
+            </td>
+        `;
+        tbody.appendChild(rowDetails);
+    }
+}
+
+function toggleDetailsRow(rowId, iconId) {
+    const row = document.getElementById(rowId);
+    const icon = document.getElementById(iconId);
+    if (row && icon) {
+        row.classList.toggle("hidden");
+        icon.classList.toggle("open");
+    }
+}
+
+/**
+ * Data persistence engine using local storage
+ */
+function savePerformanceHistory(correctCount, totalCount, hasPassed, bucketScores) {
+    const historicalEntries = JSON.parse(localStorage.getItem('dow_quiz_attempts') || '[]');
+    
+    const formattedBucketMetrics = {};
+    for (let b = 1; b <= 6; b++) {
+        if (bucketScores[b] && bucketScores[b].total > 0) {
+            formattedBucketMetrics[`Bucket ${b}`] = {
+                correct: bucketScores[b].correct,
+                total: bucketScores[b].total
+            };
+        }
+    }
+    // Capture rule metrics per performance attempt
+    const formattedRuleMetrics = {};
+    for (let b = 1; b <= 6; b++) {
+        if (bucketScores[b] && bucketScores[b].rules) {
+            Object.keys(bucketScores[b].rules).forEach(r => {
+                const ruleNum = parseInt(r, 10);
+                formattedRuleMetrics[ruleNum] = {
+                    correct: bucketScores[b].rules[r].correct,
+                    total: bucketScores[b].rules[r].total
+                };
+            });
+        }
+    }
+    // Capture precise question IDs that were deployed in this session
+    const deployedQuestionRefs = activeAssessmentPool.map(q => q.indexRef);
+    const currentEntry = {
+        date: new Date().toISOString(),
+        totalScore: correctCount,
+        size: totalCount,
+        passed: hasPassed,
+        bucketScores: formattedBucketMetrics,
+        ruleScores: formattedRuleMetrics, // Persist precise rule indexes
+        deployedQuestions: deployedQuestionRefs // Tracks question IDs for analytics
+    };
+    historicalEntries.push(currentEntry);
+    localStorage.setItem('dow_quiz_attempts', JSON.stringify(historicalEntries));
+    renderHistoryDashboardTable();
+}
+
+function renderHistoryDashboardTable() {
+    const tbody = document.getElementById("history-table-body");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+    const entries = JSON.parse(localStorage.getItem('dow_quiz_attempts') || '[]');
+    if (entries.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--navy-grey); padding: 20px;">No historical attempts found. Begin training by using the Assessment Creation panel.</td></tr>`;
+        renderHistoricalRuleBreakdown(entries);
+        return;
+    }
+    // Sort showing newest entries first
+    const sorted = [...entries].reverse();
+    sorted.forEach(entry => {
+        const entryDate = new Date(entry.date);
+        const formattedDate = entryDate.toLocaleString('en-US', {
+            timeZone: 'America/New_York',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        }) + " EST";
+        const percent = Math.round((entry.totalScore / entry.size) * 100);
+        const badgeStyle = entry.passed ? "badge-pass" : "badge-fail";
+        const badgeLabel = entry.passed ? "PASS" : "FAIL";
+        // Category Badge loop
+        let metricsBadges = "";
+        for (let b = 1; b <= 6; b++) {
+            const bucketData = entry.bucketScores && entry.bucketScores[`Bucket ${b}`];
+            if (bucketData) {
+                const bPercent = Math.round((bucketData.correct / bucketData.total) * 100);
+                const passClass = bPercent >= 90 ? "badge-bucket-pass" : "badge-bucket-fail";
+                // RESOLVE NEW CUSTOM LABEL:
+                const label = bucketShortNames[b] || `B${b}`;
+                metricsBadges += `<span class="badge badge-bucket ${passClass}">${label}: ${bucketData.correct}/${bucketData.total}</span> `;
+            }
+        }
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td><strong>${formattedDate}</strong></td>
+            <td>${entry.size} Questions</td>
+            <td>
+                <span class="badge ${badgeStyle}">${badgeLabel}</span>
+                <strong style="margin-left: 8px;">${entry.totalScore} / ${entry.size} (${percent}%)</strong>
+            </td>
+            <td>
+                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                    ${metricsBadges || '<span style="color:var(--navy-grey)">-</span>'}
+                </div>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+    // Populate Rule-Based performance metrics breakdown
+    renderHistoricalRuleBreakdown(entries);
+}
+
+/**
+ * Compiles and appends cumulative historical breakdown of Rule-based performance
+ */
+function renderHistoricalRuleBreakdown(entries) {
+    const tbody = document.getElementById("history-table-body");
+    if (!tbody) return;
+    const table = tbody.closest('table');
+    if (!table) return;
+    injectHistoryRuleStyles();
+    let container = document.getElementById("history-rule-breakdown-container");
+    if (!container) {
+        container = document.createElement("div");
+        container.id = "history-rule-breakdown-container";
+        container.className = "history-rule-section";
+        table.parentNode.insertBefore(container, table.nextSibling);
+    }
+    if (entries.length === 0) {
+        container.innerHTML = "";
+        container.style.display = "none";
+        container.classList.add("hidden");
+        return;
+    }
+    container.style.display = "flex";
+    container.classList.remove("hidden");
+    
+    // Initialize metrics container for rules 1-37
+    const cumulativeRules = {};
+    for (let r = 1; r <= 37; r++) {
+        cumulativeRules[r] = { correct: 0, total: 0 };
+    }
+    // Traverse all attempts to calculate rules cumulative stats
+    entries.forEach(entry => {
+        if (entry.ruleScores) {
+            Object.keys(entry.ruleScores).forEach(r => {
+                const ruleNum = parseInt(r, 10);
+                if (cumulativeRules[ruleNum]) {
+                    cumulativeRules[ruleNum].correct += entry.ruleScores[r].correct;
+                    cumulativeRules[ruleNum].total += entry.ruleScores[r].total;
+                }
+            });
+        }
+    });
+    const hasAnyRuleData = Object.values(cumulativeRules).some(r => r.total > 0);
+    container.innerHTML = `
+        <div class="history-rule-header">
+            <h3 class="history-rule-title">📊 Performance by Rule</h3>
+            <div class="history-rule-filters" id="rule-filters-container">
+                <button class="rule-filter-btn active" data-filter="all">All</button>
+                <button class="rule-filter-btn" data-filter="mastered">High (≥90%)</button>
+                <button class="rule-filter-btn" data-filter="warning">Medium (80-89%)</button>
+                <button class="rule-filter-btn" data-filter="weak">Low (<80%)</button>
+                <button class="rule-filter-btn" data-filter="untested">Untested</button>
+            </div>
+        </div>
+        ${!hasAnyRuleData ? `
+            <div style="text-align: center; color: var(--navy-grey); font-size: 13px; padding: 16px; background: rgba(255,255,255,0.02); border-radius: 6px;">
+                📝 Rule-specific mastery breakdown will show up here after completing your first assessment.
+            </div>
+        ` : `
+            <div class="history-rule-grid" id="history-rule-grid-items"></div>
+        `}
+    `;
+    if (!hasAnyRuleData) return;
+    const gridContainer = document.getElementById("history-rule-grid-items");
+    const filterButtons = container.querySelectorAll(".rule-filter-btn");
+    let activeFilter = "all";
+    function drawGrid() {
+        gridContainer.innerHTML = "";
+        for (let r = 1; r <= 37; r++) {
+            const data = cumulativeRules[r];
+            const total = data.total;
+            const correct = data.correct;
+            const percent = total > 0 ? Math.round((correct / total) * 100) : 0;
+            let status = "untested";
+            if (total > 0) {
+                if (percent >= 90) {
+                    status = "mastered";
+                } else if (percent >= 80) {
+                    status = "warning";
+                } else {
+                    status = "weak";
+                }
+            }
+            // Filter checks
+            if (activeFilter === "mastered" && status !== "mastered") continue;
+            if (activeFilter === "warning" && status !== "warning") continue;
+            if (activeFilter === "weak" && status !== "weak") continue;
+            if (activeFilter === "untested" && status !== "untested") continue;
+            const item = document.createElement("div");
+            item.className = `rule-grid-item rule-status-${status}`;
+            let scoreStr = "—";
+            let percentStr = "";
+            if (total > 0) {
+                scoreStr = `${correct}/${total}`;
+                percentStr = `<div class="rule-grid-percent">${percent}%</div>`;
+            }
+            item.innerHTML = `
+                <div class="rule-grid-number">Rule ${r}</div>
+                <div class="rule-grid-score">${scoreStr}</div>
+                ${percentStr}
+            `;
+            gridContainer.appendChild(item);
+        }
+        if (gridContainer.children.length === 0) {
+            gridContainer.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: var(--navy-grey); padding: 24px; font-size: 13px;">No rules match the active filter.</div>`;
+        }
+    }
+    filterButtons.forEach(btn => {
+        btn.onclick = () => {
+            filterButtons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            activeFilter = btn.getAttribute("data-filter");
+            drawGrid();
+        };
+    });
+    drawGrid();
+}
+
+/**
+ * Programmatically inject styling rules for the Rule Breakdown interface block
+ */
+function injectHistoryRuleStyles() {
+    if (document.getElementById("history-rule-styles")) return;
+    const style = document.createElement("style");
+    style.id = "history-rule-styles";
+    style.textContent = `
+        .history-rule-section {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 2px dashed rgba(255, 255, 255, 0.1);
+        }
+        .history-rule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .history-rule-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
             margin: 0;
-            padding: 0;
-            min-height: 100vh;
+        }
+        .history-rule-filters {
             display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: stretch;
-            box-sizing: border-box;
-        }
-        .app-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding-top: 30px;
-            padding-bottom: 30px;
-            padding-left: clamp(20px, 5vw, 1in);
-            padding-right: clamp(20px, 5vw, 1in);
-            box-sizing: border-box;
-        }
-        h1, h2, h3, h4 {
-            color: var(--navy-white);
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-        h1 {
-            font-size: 26px;
-            border-bottom: 2px solid var(--navy-yellow);
-            padding-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .card {
-            background-color: var(--primary-dark2);
-            border: 1px solid rgba(226, 232, 240, 0.15);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            display: flex;
-            flex-direction: column;
-            height: auto; /* Shrinks container height to fit the text */
-        }
-        .dashboard-grid, .results-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            align-items: start; /* Align to top; cards are free to grow only if content demands it */
-        }
-        @media (max-width: 900px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-            .quiz-layout {
-                grid-template-columns: 1fr; /* Switch to single column on mobile */
-            }
-        } 
-        .quiz-layout {
-            display: grid;
-            grid-template-columns: 260px 1fr; /* Two columns on desktop */
-            gap: 20px;
-            align-items: start;
-        }
-        /* Test Configuration Controls */
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--navy-white);
-            font-size: 15px;
-        }
-        .slider-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        input[type="range"] {
-            flex-grow: 1;
-            accent-color: var(--navy-yellow);
-            cursor: pointer;
-        }
-        .slider-value {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--navy-yellow);
-            min-width: 35px;
-            text-align: right;
-        }
-        /* Bucket Grid */
-        .buckets-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 12px;
-            margin-top: 10px;
-        }
-        .bucket-toggle {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(226, 232, 240, 0.15);
-                    border-radius: 8px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px; /* Added gap to prevent text from touching the switch */
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .bucket-toggle:hover {
-            border-color: var(--navy-yellow);
-        }
-        .bucket-toggle.active {
-            border-color: var(--navy-yellow);
-            background: rgba(232, 176, 15, 0.08);
-        }
-        .bucket-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            flex: 1; /* Allows text to expand/wrap and fill available space */
-            min-width: 0; /* Safely prevents container overflow */
-        }
-        .bucket-name {
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--navy-white);
-        }
-        .bucket-desc {
-            /* 1. COLOR & OPACITY */
-            color: var(--border-light);
-    
-            /* 2. TYPOGRAPHY (FONT & SIZE) */
-            font-family: 'Segoe UI', system-ui, sans-serif; 
-            font-size: 13px;
-            font-weight: 600;          
-    
-            /* 3. SPACING & ALIGNMENT */
-            line-height: 1.35;     
-            letter-spacing: 0.01em; 
-            margin-top: 2px;     /* Adds gap below the "Part B" label */
-            /* 4. OPTIONAL STYLING EFFECTS */
-            font-style: normal;
-            text-transform: none; /* e.g., 'uppercase', 'capitalize', 'none'*/
-        }
-        .bucket-rules-label {
-            font-size: 12px;
-            color: var(--navy-grey);
-        }
-        /* Switches */
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 40px;
-            height: 20px;
-            flex-shrink: 0; /* Forces switch to preserve exact shape and width */
-        }
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        .slider-switch {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #4a5568;
-            transition: .3s;
-            border-radius: 20px;
-        }
-        .slider-switch:before {
-            position: absolute;
-            content: "";
-            height: 14px;
-            width: 14px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .3s;
-            border-radius: 50%;
-        }
-        input:checked + .slider-switch {
-            background-color: var(--navy-yellow);
-        }
-        input:checked + .slider-switch:before {
-            transform: translateX(20px);
-        }
-        .checkbox-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 15px;
-        }
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            font-size: 14px;
-            color: var(--navy-grey);
-            user-select: none;
-        }
-        .checkbox-container input {
-            accent-color: var(--navy-yellow);
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-        /* CTAs */
-        .btn {
-            background-color: var(--navy-yellow);
-            color: var(--primary-dark);
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-/* Helper class to light up the Next button once answered */
-        .btn-highlighted {
-            background-color: var(--navy-yellow) !important;
-            color: var(--primary-dark) !important;
-            border-color: var(--navy-yellow) !important;
-        }
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-        .btn:disabled {
-            background-color: rgba(198, 204, 208, 0.3);
-            color: rgba(255, 255, 255, 0.5);
-            cursor: not-allowed;
-            transform: none;
-        }
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--navy-grey);
-            border: 1px solid rgba(226, 232, 240, 0.3);
-        }
-        .btn-secondary:hover {
-            color: var(--navy-white);
-            border-color: var(--navy-yellow);
-        }
-        .btn-danger {
-            background-color: #e53e3e;
-            color: white;
-            border: none;
-        }
-        .btn-danger:hover {
-            background-color: #c53030;
-        }
-        /* Previous Attempts Table */
-        .table-container {
-            overflow-x: auto;
-            margin-top: 15px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 13px;
-        }
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid rgba(226, 232, 240, 0.1);
-          }
-        th {
-            color: var(--navy-white);
-            font-weight: 700;
-            text-align: center;
-        }
-        /* Badges */
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .badge-pass {
-            background-color: rgba(72, 187, 120, 0.15);
-            color: #48bb78;
-            border: 1px solid rgba(72, 187, 120, 0.3);
-        }
-        .badge-fail {
-            background-color: rgba(229, 62, 62, 0.15);
-            color: #e53e3e;
-            border: 1px solid rgba(229, 62, 62, 0.3);
-        }
-        .badge-bucket {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--navy-grey);
-            border: 1px solid rgba(226, 232, 240, 0.15);
-            font-size: 9px;
-        }
-        .badge-bucket-pass {
-            border-color: rgba(72, 187, 120, 0.4);
-            color: #48bb78;
-        }
-        .badge-bucket-fail {
-            border-color: rgba(229, 62, 62, 0.4);
-            color: #e53e3e;
-        }
-        /* Active Testing Layout */
-        .quiz-layout {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 20px;
-        }
-        .sidebar {
-            background-color: var(--primary-dark2);
-            border: 1px solid rgba(226, 232, 240, 0.15);
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
-            height: auto; /* Only take up space needed by the grid buttons */
-            max-height: calc(100vh - 100px);
-            overflow-y: auto;
-        }
-        .sidebar-title {
-            font-size: 14px;
-            border-bottom: 1px solid rgba(226, 232, 240, 0.15);
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-            text-align: center;
-            letter-spacing: 0.05em;
-        }
-        .question-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-        .q-grid-btn {
-            background: transparent;
-            border: 1px solid rgba(226, 232, 240, 0.2);
-            color: var(--navy-grey);
-            border-radius: 6px;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .q-grid-btn:hover {
-            border-color: var(--navy-yellow);
-            color: var(--navy-white);
-        }
-        .q-grid-btn.current {
-            background-color: rgba(232, 176, 15, 0.2);
-            border-color: var(--navy-yellow);
-            color: var(--navy-white);
-        }
-        .q-grid-btn.answered {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-            color: var(--navy-white);
-        }
-        .q-grid-btn.correct-fb {
-            background-color: rgba(72, 187, 120, 0.2);
-            border-color: #48bb78;
-            color: #48bb78;
-        }
-        .q-grid-btn.wrong-fb {
-            background-color: rgba(229, 62, 62, 0.2);
-            border-color: #e53e3e;
-            color: #e53e3e;
-        }
-        /* Progress Bar */
-        .progress-bar-container {
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            height: 10px;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            background-color: var(--navy-yellow);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-        .progress-text-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        /* Active Question Display */
-        .question-text-card {
-            font-size: 18px;
-            line-height: 1.6;
-            color: var(--navy-white);
-            margin-bottom: 24px;
-        }
-        .options-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .option-button {
-            background-color: rgba(255, 255, 255, 0.02);
-            border: 2px solid rgba(226, 232, 240, 0.15);
-            color: var(--navy-grey);
-            border-radius: 8px;
-            padding: 16px 20px;
-            font-size: 15px;
-            line-height: 1.4;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .option-button:hover:not(:disabled) {
-            border-color: var(--navy-yellow);
-            color: var(--navy-white);
-            background-color: rgba(232, 176, 15, 0.02);
-        }
-        .option-button.selected {
-            border-color: var(--navy-yellow);
-            background-color: rgba(232, 176, 15, 0.1);
-            color: var(--navy-white);
-        }
-        .option-button.correct {
-            background-color: rgba(72, 187, 120, 0.2) !important;
-            border-color: #48bb78 !important;
-            color: #ffffff !important;
-            font-weight: bold;
-        }
-        .option-button.wrong {
-            background-color: rgba(229, 62, 62, 0.2) !important;
-            border-color: #e53e3e !important;
-            color: #ffffff !important;
-        }
-        .explanation-box {
-            margin-top: 20px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-left: 4px solid var(--navy-yellow);
-            border-radius: 0 8px 8px 0;
-            padding: 15px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        .explanation-title {
-            font-weight: bold;
-            color: var(--navy-white);
-            margin-bottom: 5px;
-        }
-        .nav-footer {
-            display: flex !important;
-            justify-content: space-between !important; /* Spreads buttons evenly across the card */
-            align-items: center !important;
-            gap: 12px !important;                      /* Guarantees a clean space between buttons */
-            margin-top: 30px !important;
-            border-top: 1px solid rgba(226, 232, 240, 0.15) !important;
-            padding-top: 20px !important;
-        }
-/* --- FOOTER BUTTONS ALIGNMENT --- */
-        .nav-footer {
-            display: flex !important;
-            justify-content: space-between !important; /* Spreads buttons evenly across the card */
-            align-items: center !important;
-            gap: 12px !important;                      /* Guarantees a clean space between buttons */
-            margin-top: 30px !important;
-            border-top: 1px solid rgba(226, 232, 240, 0.15) !important;
-            padding-top: 20px !important;
-        }
-/* Forces all footer buttons to have perfectly consistent sizes, paddings, and round corners */
-        .nav-footer button, 
-        .nav-footer .btn, 
-        .nav-footer .btn-secondary, 
-        .nav-footer .nav-btn {
-            float: none !important;                   /* Disables any floats bunching them up */
-            margin: 0 !important;                      /* Resets erratic margins */
-            padding: 12px 20px !important;             /* Uniform internal padding */
-            border-radius: 8px !important;             /* Rounded corners on ALL sides of ALL buttons */
-            font-size: 15px !important;
-            font-weight: 600 !important;
-            height: 46px !important;                   /* Fixed height so they align perfectly on the same line */
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 8px !important;
-            cursor: pointer !important;
-            box-sizing: border-box !important;
-            transition: all 0.2s ease !important;
-        }
-/* Ensure the hover and border styles match your secondary theme */
-        .nav-footer .btn-secondary {
-            background-color: transparent !important;
-            color: var(--navy-grey) !important;
-            border: 1px solid rgba(226, 232, 240, 0.3) !important;
-        }
-        .nav-footer .btn-secondary:hover {
-            color: var(--navy-white) !important;
-            border-color: var(--navy-yellow) !important;
-            background-color: rgba(232, 176, 15, 0.05) !important;
-        }
-        /* Results & Scorecard */
-        .results-grid {
-            display: grid;
-            grid-template-columns: 340px 1fr;
-            gap: 20px;
-        }
-        @media (max-width: 900px) {
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        .score-summary-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 30px;
-        }
-        .circular-progress-container {
-            position: relative;
-            width: 160px;
-            height: 160px;
-            margin: 20px 0;
-        }
-        .progress-ring {
-            width: 160px;
-            height: 160px;
-        }
-        .progress-ring-bg {
-            stroke: rgba(255, 255, 255, 0.05);
-            stroke-width: 12;
-            fill: none;
-        }
-        .progress-ring-fill {
-            stroke: var(--navy-yellow);
-            stroke-width: 12;
-            fill: none;
-            stroke-linecap: round;
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
-            transition: stroke-dashoffset 0.5s ease;
-        }
-        .score-percent-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--navy-white);
-        }
-        .status-badge {
-            font-size: 22px;
-            font-weight: bold;
-            padding: 6px 20px;
-            border-radius: 8px;
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .status-pass {
-            background-color: rgba(72, 187, 120, 0.2);
-            color: #48bb78;
-            border: 2px solid #48bb78;
-        }
-        .status-fail {
-            background-color: rgba(229, 62, 62, 0.2);
-            color: #e53e3e;
-            border: 2px solid #e53e3e;
-        }
-        /* Collapsible Performance Tables */
-        .collapsible-header {
-            cursor: pointer;
-            user-select: none;
-            transition: background-color 0.2s ease;
-        }
-        .collapsible-header:hover {
-            background-color: rgba(255, 255, 255, 0.03);
-        }
-        .collapse-icon {
-            display: inline-block;
-            transition: transform 0.2s ease;
-            margin-right: 8px;
-            font-size: 11px;
-            color: var(--navy-yellow);
-        }
-        .collapse-icon.open {
-            transform: rotate(90deg);
-        }
-        .rule-details-row {
-            background-color: rgba(0, 0, 0, 0.15);
-        }
-        .rule-details-container {
-            padding: 12px 16px 16px 36px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .rule-detail-item {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px dashed rgba(226, 232, 240, 0.1);
-            padding-bottom: 6px;
-            font-size: 13px;
-        }
-        .rule-detail-item:last-child {
-            border: none;
-            padding-bottom: 0;
-        }
-        /* Timer Badge */
-        .timer-badge {
-            background-color: rgba(229, 62, 62, 0.12);
-            border: 1px solid #e53e3e;
-            color: #e53e3e;
-            font-size: 15px;
-            font-weight: bold;
-            padding: 6px 14px;
-            border-radius: 6px;
-            display: inline-flex;
-            align-items: center;
             gap: 6px;
         }
-        .alert-box {
-            background-color: rgba(229, 62, 62, 0.15);
-            border: 1px solid #e53e3e;
-            color: #e53e3e;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        .rule-filter-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0aec0;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .rule-filter-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        .rule-filter-btn.active {
+            background: var(--navy-yellow, #f6e05e);
+            color: #1a202c;
+            border-color: var(--navy-yellow, #f6e05e);
             font-weight: 600;
         }
-        .hidden {
-            display: none !important;
+        .history-rule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+            gap: 6px;
         }
-              /* FEEDBACK POPUP */
-        .feedback-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(9, 13, 22, 0.9); /* Matching --primary-dark with heavy opacity */
-            z-index: 2000000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .feedback-card {
-            background-color: var(--primary-dark2);
-            border: 2px solid var(--navy-yellow);
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 420px;
-            width: 90%;
+        .rule-grid-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: 4px 2px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            transition: transform 0.2s ease, background-color 0.2s ease;
         }
-    </style>
-</head>
-<body>
-<!-- WCT-UNSHIPPED-BANNER:START -->
-<div id="wct-unshipped-banner" style="background:linear-gradient(90deg,#c0392b,#e74c3c);color:#fff;text-align:center;padding:6px 12px;font-family:system-ui,-apple-system,sans-serif;font-weight:bold;font-size:12px;line-height:1.2;position:fixed;top:0;left:0;right:0;z-index:999999;box-shadow:0 1px 4px rgba(0,0,0,0.25);">
-  ⚠️ Not Secured – Ship in Forge before entering CUI/sensitive data
-</div>
-<style id="wct-unshipped-banner-style">body { padding-top: 30px !important; }</style>
-<!-- WCT-UNSHIPPED-BANNER:END -->
-<div class="app-container">
-    <h1>Rules of the Road Practice Platform</h1>
-    <div id="missing-db-alert" class="alert-box hidden">
-        ⚠️ <strong>Database Alert:</strong> No questions detected. Run the <code>converter.html</code> tool to generate and download a valid <code>questions.js</code> database, then save it in this directory.
-    </div>
-    <!-- VIEW A: WELCOME & CONFIGURATION DASHBOARD -->
-    <div id="view-dashboard" class="dashboard-grid">
-        <!-- Configuration Menu -->
-        <div class="card">
-            <h2>🛠️ Assessment Creation</h2>
-            <hr style="
-              border-color: rgba(226, 232, 240, 0.15); 
-              margin-top: 0px;
-              margin-bottom: 8px;">
+        .rule-grid-item:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .rule-grid-number {
+            font-size: 9px;
+            color: #a0aec0;
+            margin-bottom: 2px;
+            font-weight: 500;
+        }
+        .rule-grid-score {
+            font-size: 10px;
+            font-weight: bold;
+        }
+        .rule-grid-percent {
+            font-size: 9px;
+            margin-top: 1px;
+            opacity: 0.85;
+        }
+        .rule-status-mastered {
+            border-left: 2px solid #48bb78;
+            background: rgba(72, 187, 120, 0.04);
+        }
+        .rule-status-mastered .rule-grid-score {
+            color: #48bb78;
+        }
+        .rule-status-warning {
+            border-left: 2px solid #ecc94b;
+            background: rgba(236, 201, 75, 0.04);
+        }
+        .rule-status-warning .rule-grid-score {
+            color: #ecc94b;
+        }
+        .rule-status-weak {
+            border-left: 2px solid #e53e3e;
+            background: rgba(229, 62, 62, 0.04);
+        }
+        .rule-status-weak .rule-grid-score {
+            color: #e53e3e;
+        }
+        .rule-status-untested {
+            border-left: 2px solid #718096;
+        }
+        .rule-status-untested .rule-grid-score {
+            color: #718096;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+function clearSavedAttempts() {
+    if (confirm("Are you sure you want to clear your testing history? This cannot be undone.")) {
+        localStorage.removeItem('dow_quiz_attempts');
+        renderHistoryDashboardTable();
+    }
+}
+
+/**
+ * Lifecycle and workflow handlers
+ */
+/**
+ * Safely exits the active assessment. If questions were answered, 
+ * it shrinks the test to match only the completed questions and submits it
+ * as an official attempt.
+ */
+function exitToDashboard() {
+    // 1. Find the exact indices of the questions the user actually answered
+    const answeredIndices = [];
+    userSelectedAnswers.forEach((ans, idx) => {
+        if (ans !== null) {
+            answeredIndices.push(idx);
+        }
+    });
+    const answeredCount = answeredIndices.length;
+    // 2. If they haven't answered anything at all, just exit normally without saving
+    if (answeredCount === 0) {
+        clearInterval(countdownTimerInterval);
+        backToDashboard();
+        return;
+    }
+    // 3. Confirm they want to submit the partial test
+    const confirmExit = confirm(`You have answered ${answeredCount} question(s).\n\nAre you sure you want to exit and save this partial assessment to your history?`);
+    if (!confirmExit) {
+        return; // Abort exit, keep them on the current question
+    }
+    // 4. Create new arrays containing ONLY the answered questions
+    const partialPool = [];
+    const partialAnswers = [];
+    
+    answeredIndices.forEach(idx => {
+        partialPool.push(activeAssessmentPool[idx]);
+        partialAnswers.push(userSelectedAnswers[idx]);
+    });
+    // 5. Overwrite the active state with the new partial data
+    activeAssessmentPool = partialPool;
+    userSelectedAnswers = partialAnswers;
+    // 6. Push to the standard submission engine to grade, save, and show results
+    submitCompletedAssessment();
+}
+
+function backToDashboard() {
+    document.getElementById("view-dashboard").classList.remove("hidden");
+    document.getElementById("view-testing").classList.add("hidden");
+    document.getElementById("view-results").classList.add("hidden");
+    renderHistoryDashboardTable();
+}
+
+function reRunSameConfig() {
+    initiateAssessment();
+}
+
+// Startup configurations
+window.onload = function() {
+    renderHistoryDashboardTable();
+    
+    // Dynamic sliders listener
+    const sizeSlider = document.getElementById("quiz-size-slider");
+    const sliderVal = document.getElementById("slider-value");
+    sizeSlider.addEventListener("input", function() {
+        sliderVal.innerText = this.value;
+    });
+    // Checkbox toggles logic (Synced for both card clicks and switch clicks)
+    const toggles = document.querySelectorAll(".bucket-toggle");
+    toggles.forEach(toggle => {
+        const checkbox = toggle.querySelector(".bucket-toggle-checkbox");
+        
+        // 1. Listen for changes directly on the checkbox
+        checkbox.addEventListener("change", function() {
+            if (this.checked) {
+                toggle.classList.add("active");
+            } else {
+                toggle.classList.remove("active");
+            }
+        });
+        // 2. Listen for clicks on the card itself
+        toggle.addEventListener("click", function(e) {
+            // If the user clicked the toggle switch elements directly, let the native browser event handle it
+            if (e.target.closest(".switch")) {
+                return;
+            }
             
-            <div class="form-group">
-                <label for="quiz-size-slider">Number of Questions</label>
-                <div class="slider-container">
-                    <input type="range" id="quiz-size-slider" min="10" max="50" step="5" value="10">
-                    <span id="slider-value" class="slider-value">10</span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Enable Category Buckets</label>
-                <div class="buckets-grid">
-                    <div class="bucket-toggle active" data-bucket="1">
-                        <div class="bucket-info">
-                            <span class="bucket-name">Part A</span>
-                            <span class="bucket-desc">General</span>
-                            <span class="bucket-rules-label">Rules 1-3</span>
-                        </div>
-                        <label class="switch" onclick="event.stopPropagation();">
-                            <input type="checkbox" class="bucket-toggle-checkbox" data-bucket="1" checked="">
-                            <span class="slider-switch"></span>
-                        </label>
-                    </div>
-                    <div class="bucket-toggle active" data-bucket="2">
-                        <div class="bucket-info">
-                            <span class="bucket-name">Part B - Section I</span>
-                            <span class="bucket-desc">Conduct of Vessels in Any Condition of Visibility</span>
-                            <span class="bucket-rules-label">Rules 4-10</span>
-                        </div>
-                        <label class="switch" onclick="event.stopPropagation();">
-                            <input type="checkbox" class="bucket-toggle-checkbox" data-bucket="2" checked="">
-                            <span class="slider-switch"></span>
-                        </label>
-                    </div>
-                    <div class="bucket-toggle active" data-bucket="3">
-                        <div class="bucket-info">
-                            <span class="bucket-name">Part B - Section II</span>
-                            <span class="bucket-desc">Conduct of Vessels in Sight of One Another</span>
-                            <span class="bucket-rules-label">Rules 11-18</span>
-                        </div>
-                        <label class="switch" onclick="event.stopPropagation();">
-                            <input type="checkbox" class="bucket-toggle-checkbox" data-bucket="3" checked="">
-                            <span class="slider-switch"></span>
-                        </label>
-                    </div>
-                    <div class="bucket-toggle active" data-bucket="4">
-                        <div class="bucket-info">
-                            <span class="bucket-name">Part B - Section III</span>
-                            <span class="bucket-desc">Conduct of Vessels in Restricted Visibility</span>
-                            <span class="bucket-rules-label">Rule 19</span>
-                        </div>
-                        <label class="switch" onclick="event.stopPropagation();">
-                            <input type="checkbox" class="bucket-toggle-checkbox" data-bucket="4" checked="">
-                            <span class="slider-switch"></span>
-                        </label>
-                    </div>
-                    <div class="bucket-toggle active" data-bucket="5">
-                        <div class="bucket-info">
-                            <span class="bucket-name">Part C</span>
-                            <span class="bucket-desc">Lights and Shapes</span>
-                            <span class="bucket-rules-label">Rules 20-31</span>
-                        </div>
-                        <label class="switch" onclick="event.stopPropagation();">
-                            <input type="checkbox" class="bucket-toggle-checkbox" data-bucket="5" checked="">
-                            <span class="slider-switch"></span>
-                        </label>
-                    </div>
-                    <div class="bucket-toggle active" data-bucket="6">
-                        <div class="bucket-info">
-                            <span class="bucket-name">Part D</span>
-                            <span class="bucket-desc">Sound and Light Signals</span>
-                            <span class="bucket-rules-label">Rules 32-37</span>
-                        </div>
-                        <label class="switch" onclick="event.stopPropagation();">
-                            <input type="checkbox" class="bucket-toggle-checkbox" data-bucket="6" checked="">
-                            <span class="slider-switch"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="checkbox-group">
-                <label class="checkbox-container">
-                    <input type="checkbox" id="immediate-feedback-checkbox" checked="">
-                    <span>Show Correctness Immediately (Instant Question Feedback)</span>
-                </label>
-                <label class="checkbox-container">
-                    <input type="checkbox" id="timed-mode-checkbox">
-                    <span>Timed Exam Simulation Mode (50 Questions, 60-Min Timer, 90% Passing Threshold)</span>
-                </label>
-            </div>
-            <button id="start-btn" class="btn" style="width: 100%; margin-top: 15px;" onclick="initiateAssessment()">Create Practice Assessment</button>
-        </div>
-        <!-- History Dashboard & Performance Breakdown Column -->
-        <div style="display: flex; flex-direction: column; gap: 20px;">
-            <!-- History Dashboard Card -->
-            <div class="card" style="
-              display: flex; 
-              flex-direction: column;">
-                <div style="
-                  display: flex; 
-                  justify-content: space-between; 
-                  align-items: center; 
-                  margin-bottom: 8px;">
-                    <h2 style="
-                      margin: 0;">📊 Historical Performance</h2>
-                    <button class="btn btn-secondary btn-danger" style="
-                      padding: 6px 12px; 
-                      font-size: 12px;" onclick="clearSavedAttempts()">Clear History</button>
-                </div>
-                <hr style="
-                  border-color: rgba(226, 232, 240, 0.15); 
-                  margin-top: 0;
-                  margin-bottom: 8px;">
-                
-                <div class="table-container" style="
-                  flex-grow: 1;
-                  max-height: 295px;
-                  overflow-y: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Assessment Date</th>
-                                <th>Scope</th>
-                                <th>Result</th>
-                                <th>Rules Part Breakdown</th>
-                            </tr>
-                        </thead>
-                        <tbody id="history-table-body">
-                            <!-- Populated by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            // Otherwise, if they clicked the card background/text, programmatically toggle the state
+            if (!checkbox.disabled) {
+                checkbox.checked = !checkbox.checked;
+                // Trigger the 'change' event manually to run our styling logic above
+                checkbox.dispatchEvent(new Event('change'));
+            }
+        });
+    });
+    // Setup exclusive timed mode lockings
+    const timedCheckbox = document.getElementById("timed-mode-checkbox");
+    const feedbackCheckbox = document.getElementById("immediate-feedback-checkbox");
+    
+    timedCheckbox.addEventListener("change", function() {
+        if (this.checked) {
+            sizeSlider.value = 50;
+            sliderVal.innerText = "50";
+            sizeSlider.disabled = true;
+            feedbackCheckbox.checked = false;
+            feedbackCheckbox.disabled = true;
+            document.querySelectorAll(".bucket-toggle-checkbox").forEach(chk => {
+                chk.checked = true;
+                chk.disabled = true;
+                chk.closest(".bucket-toggle").classList.add("active");
+            });
+        } else {
+            sizeSlider.disabled = false;
+            feedbackCheckbox.disabled = false;
+            document.querySelectorAll(".bucket-toggle-checkbox").forEach(chk => {
+                chk.disabled = false;
+            });
+        }
+    });
+    if (typeof questionBank === 'undefined') {
+        document.getElementById("missing-db-alert").classList.remove("hidden");
+    }
+};
+
+// ===================================================
+// --- FEEDBACK POPUP INPUT MASH DETECTOR CONTROL ---
+// ===================================================
+let recentInputs = [];
+const MASH_TIME_WINDOW_MS = 2000;    // 2-second tracking window
+const MASH_INPUT_THRESHOLD = 10;     // 10 key presses or clicks to trigger
+
+function handleMashInput(type) {
+    const popup = document.getElementById("feedback-popup");
+    
+    // Only track inputs when the feedback pop-up is currently closed
+    if (popup && popup.classList.contains("hidden")) {
+        const now = Date.now();
+        recentInputs.push(now);
+        
+        // Clean up inputs older than our 2-second sliding window
+        recentInputs = recentInputs.filter(timestamp => now - timestamp < MASH_TIME_WINDOW_MS);
+        
+        console.log(`[Mash Detector] Input registered (${type}). Count in window: ${recentInputs.length}/${MASH_INPUT_THRESHOLD}`);
+        
+        // Trigger if threshold is crossed
+        if (recentInputs.length >= MASH_INPUT_THRESHOLD) {
+            console.log("[Mash Detector] Threshold reached! Triggering feedback modal.");
+            recentInputs = []; // Flush tracking history
+            showFeedbackModal();
+        }
+    }
+}
+
+// Track physical keyboard button mashing
+window.addEventListener('keydown', () => {
+    handleMashInput('Keyboard');
+});
+
+// Track rapid mouse/touchpad clicks on-screen
+window.addEventListener('click', () => {
+    handleMashInput('Mouse Click');
+});
+
+function showFeedbackModal() {
+    const popup = document.getElementById("feedback-popup");
+    if (popup) {
+        popup.classList.remove("hidden");
+    }
+}
+
+function closeFeedbackModal() {
+    const popup = document.getElementById("feedback-popup");
+    if (popup) {
+        popup.classList.add("hidden");
+    }
+}
+
+// ===================================================
+// --- ADMIN QUESTION DEPLOYMENT REPORT CONTROLLER ---
+// ===================================================
+let adminKeyBuffer = "";
+
+// Listen for sequential typing of the word "admin"
+window.addEventListener('keydown', (event) => {
+    // Only capture standard single character keys (a-z)
+    if (event.key && event.key.length === 1) {
+        adminKeyBuffer += event.key.toLowerCase();
+        
+        // Keep the buffer strictly limited to the last 5 characters typed
+        if (adminKeyBuffer.length > 5) {
+            adminKeyBuffer = adminKeyBuffer.slice(-5);
+        }
+        
+        // If the exact sequence matches "admin", toggle the display
+        if (adminKeyBuffer === "admin") {
+            adminKeyBuffer = ""; // Reset buffer immediately on trigger
             
-            <!-- Performance by Rule Card -->
-            <div id="history-rule-breakdown-container" class="card hidden" style="display: none; flex-direction: column;">
-                <!-- Populated dynamically by JavaScript -->
-            </div>
-        </div>
-    </div>
-  <!-- Hidden Admin Analytics Dashboard -->
-        <div id="admin-report-card" class="card hidden" style="
-          border: 2px dashed var(--navy-yellow); 
-          margin-top: 20px;">
-            <div style="
-              display: flex; 
-              justify-content: space-between; 
-              align-items: center; 
-              margin-bottom: 10px;">
-                <h2 style="
-                  margin: 0; 
-                  color: var(--navy-yellow);">🔑 System Admin: Question Deployment Analytics</h2>
-                <span class="badge badge-pass">Local Sandbox Only</span>
-            </div>
-            <p style="
-              font-size: 13px; 
-              color: var(--navy-grey); 
-              margin-top: 0;">Shows how many times each database question has been selected over time.</p>
-            <hr style="
-              border-color: rgba(226, 232, 240, 0.15); 
-              margin-bottom: 15px;">
-            
-            <div class="table-container" style="
-              max-height: 400px; 
-              overflow-y: auto;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 80px;">Question ID</th>
-                            <th style="width: 120px;">Category Bucket</th>
-                            <th>Question Text Snippet</th>
-                            <th style="width: 100px; text-align: right;">Total Deployments</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-report-body">
-                        <!-- Generated on-demand dynamically -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    <!-- VIEW B: ACTIVE TESTING INTERFACE -->
-    <div id="view-testing" class="quiz-layout hidden">
-        <!-- Sidebar Navigation -->
-        <div class="sidebar">
-            <h3 class="sidebar-title">QUIZ NAVIGATION</h3>
-            <div id="question-grid-container" class="question-grid">
-                <!-- Buttons dynamically generated -->
-            </div>
-        </div>
-        <!-- Main Card Workspace -->
-        <div class="card">
-            <div class="progress-text-row" style="align-items: center;">
-                <div style="display: flex; gap: 15px; align-items: center;">
-                    <span id="progress-numerical">Question 1 of 25</span>
-                    <div id="timer-badge" class="timer-badge hidden">⏱️ Timer: 60:00</div>
-                </div>
-                <button id="home-quiz-btn" class="btn btn-secondary" style="padding: 6px 12px !important; height: auto !important; font-size: 13px !important; margin: 0 !important;" onclick="exitToDashboard()">🏠 Exit</button>
-            </div>
-            
-            <div class="progress-bar-container">
-                <div id="progress-bar-fill" class="progress-bar-fill"></div>
-            </div>
-            <div id="question-text-card" class="question-text-card">
-                <!-- Question Text -->
-            </div>
-            <!-- Quiz Diagram Element -->
-            <img id="quiz-diagram" style="display: none; max-width: 100%; max-height: 350px; margin: 0 auto 20px auto; border-radius: 8px; border: 1px solid rgba(226, 232, 240, 0.15); box-shadow: 0 4px 10px rgba(0,0,0,0.3);" alt="Quiz Diagram">
-            <div id="options-list" class="options-list">
-                <!-- Option Buttons -->
-            </div>
-            <div id="explanation-box" class="explanation-box hidden">
-                <div class="explanation-title">COLREGS Reference</div>
-                <div id="explanation-text">Explanation content.</div>
-            </div>
-            <div class="nav-footer">
-                <button id="prev-btn" class="btn btn-secondary" onclick="stepPrevious()">◀ Previous</button>
-                <button id="next-btn" class="btn btn-secondary" style="margin-left: auto !important;" onclick="stepNext()">Next ▶</button>
-            </div>
-        </div>
-    </div>
-    <!-- VIEW C: RESULTS SCORECARD -->
-    <div id="view-results" class="results-grid hidden">
-        <!-- Circle Progress Ring Column -->
-        <div class="card score-summary-card">
-            <h2>Assessment Scorecard</h2>
-            <div class="circular-progress-container">
-                <svg class="progress-ring">
-                    <circle class="progress-ring-bg" r="70" cx="80" cy="80"></circle>
-                    <circle id="score-ring-fill" class="progress-ring-fill" r="70" cx="80" cy="80"></circle>
-                </svg>
-                <div id="score-percent-text" class="score-percent-text">0%</div>
-            </div>
-            <div id="score-numerical-summary" style="font-size: 16px; margin-bottom: 10px;">Correct answers: 0 / 25</div>
-            <div id="score-pass-fail-badge" class="status-badge status-pass">PASS</div>
-        </div>
-        <!-- Performance breakdown Tables -->
-        <div class="card">
-            <h2>Detailed Category Metric Performance</h2>
-            <hr style="
-              border-color: rgba(226, 232, 240, 0.15); 
-              margin-top: 0;
-              margin-bottom: 8px;">
-            
-            <div class="table-container">
-                <table class="bucket-performance-table">
-                    <thead>
-                        <tr>
-                            <th>Bucket / Category Title</th>
-                            <th>Rule Sets</th>
-                            <th>Quota Score</th>
-                            <th>Yield</th>
-                        </tr>
-                    </thead>
-                    <tbody id="bucket-breakdown-body">
-                    </tbody>
-                </table>
-            </div>
-            <div style="margin-top: 25px; display: flex; gap: 12px; justify-content: flex-end;">
-                <button class="btn btn-secondary" onclick="backToDashboard()">🏠 Back to Main Menu</button>
-                <button class="btn" onclick="reRunSameConfig()">🔄 Generate Another Test</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="questions.js"></script>
-<script src="diagrams.js"></script>
-<script src="app.js"></script>
-<!-- VIEW D: FEEDBACK MODAL -->
-<div id="feedback-popup" class="feedback-overlay hidden">
-    <div class="feedback-card">
-        <h3 style="
-          color: var(--navy-yellow); 
-          margin-top: 0; 
-          margin-bottom: 0px;
-          font-size: 40px; 
-          border-bottom: none; 
-          padding-bottom: 0; 
-          display: block;">Feedback?</h3>
-        <p style="
-          color: var(--navy-white); 
-          font-size: 29px; 
-          line-height: 1.6; 
-          margin-top: 15px;
-          margin-bottom: 15px;">
-            To provide feedback on this app, contact Alex Henrie (SWSC N9).
-        </p>
-        <button class="btn" onclick="closeFeedbackModal()" style="min-width: 120px;">Got it</button>
-    </div>
-</div>
-</body></html>
+            // Safety: Don't trigger if the user is actively typing in a form input field
+            const activeEl = document.activeElement.tagName;
+            if (activeEl !== 'INPUT' && activeEl !== 'TEXTAREA') {
+                toggleAdminReport();
+            }
+        }
+    }
+});
+
+function toggleAdminReport() {
+    const adminCard = document.getElementById("admin-report-card");
+    if (adminCard) {
+        const isHidden = adminCard.classList.toggle("hidden");
+        if (!isHidden) {
+            generateAdminDeploymentReport();
+            // Scroll down to the report card smoothly
+            adminCard.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+}
+
+function generateAdminDeploymentReport() {
+    const tbody = document.getElementById("admin-report-body");
+    if (!tbody || typeof questionBank === 'undefined') return;
+    
+    tbody.innerHTML = "";
+    const entries = JSON.parse(localStorage.getItem('dow_quiz_attempts') || '[]');
+    
+    // Count frequency of deployed questions
+    const deploymentCounts = {};
+    // Seed all database questions with 0 counts
+    questionBank.forEach((_, idx) => {
+        deploymentCounts[idx] = 0;
+    });
+    
+    // Populate with historical usage
+    entries.forEach(entry => {
+        if (entry.deployedQuestions && Array.isArray(entry.deployedQuestions)) {
+            entry.deployedQuestions.forEach(qIdx => {
+                if (deploymentCounts[qIdx] !== undefined) {
+                    deploymentCounts[qIdx]++;
+                }
+            });
+        }
+    });
+    
+    // Map tracking to readable rows
+    const reportData = questionBank.map((q, idx) => {
+        const bucketIds = identifyQuestionBuckets(q);
+        // RESOLVE NEW CUSTOM LABEL:
+        const bucketLabels = bucketIds.map(b => bucketShortNames[b] || `B${b}`).join(", ") || "General";
+        return {
+            id: idx,
+            buckets: bucketLabels,
+            text: q["QUESTION TEXT"],
+            count: deploymentCounts[idx] || 0
+        };
+    });
+    // Sort so the most frequently deployed questions show up at the very top
+    reportData.sort((a, b) => b.count - a.count);
+    
+    reportData.forEach(item => {
+        const tr = document.createElement("tr");
+        const snippet = item.text.length > 90 ? item.text.substring(0, 90) + "..." : item.text;
+        
+        tr.innerHTML = `
+            <td><code>#${item.id}</code></td>
+            <td><span class="badge badge-bucket">${item.buckets}</span></td>
+            <td title="${item.text.replace(/"/g, '&quot;')}">${snippet}</td>
+            <td style="text-align: right; font-weight: bold; color: ${item.count > 0 ? 'var(--navy-yellow)' : 'var(--navy-grey)'};">${item.count}x</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
