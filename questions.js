@@ -11922,7 +11922,7 @@ const questionBank = [
   },
   {
     "Q #": 1027,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagam 42. Two power-driven vessels are crossing as shown. Vessel A sounds three short blasts on the whistle. This signal means that vessel A __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagram 42. Two power-driven vessels are crossing as shown. Vessel A sounds three short blasts on the whistle. This signal means that vessel A __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 34a",
     "ANSWER 1": "intends to hold course and speed",
     "POINTS": 0,
