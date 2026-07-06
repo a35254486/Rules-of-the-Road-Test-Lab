@@ -359,33 +359,58 @@ function loadActiveQuestion() {
             correctText = question[opt.textKey];
         }
     });
+    
+    // Verify or dynamically generate stable randomized order of answer configurations
+    if (!question.renderedOptions) {
+        const validOptions = [];
+        keySchema.forEach(opt => {
+            const optionText = question[opt.textKey];
+            if (optionText && optionText.trim() !== "") {
+                validOptions.push(opt);
+            }
+        });
+        // Search options to determine if override for "all of the above" or "none of the above" applies
+        let bypassRandomization = false;
+        validOptions.forEach(opt => {
+            const optionText = question[opt.textKey];
+            if (optionText) {
+                const textLower = optionText.toLowerCase();
+                if (textLower.includes("all of the above") || textLower.includes("none of the above")) {
+                    bypassRandomization = true;
+                }
+            }
+        });
+        if (bypassRandomization) {
+            question.renderedOptions = validOptions;
+        } else {
+            question.renderedOptions = shuffleArray([...validOptions]);
+        }
+    }
     const alreadyAnswered = userSelectedAnswers[currentQuestionIndex] !== null;
     const selectedAnswerText = userSelectedAnswers[currentQuestionIndex];
-    keySchema.forEach(opt => {
+    question.renderedOptions.forEach(opt => {
         const optionText = question[opt.textKey];
-        if (optionText && optionText.trim() !== "") {
-            const btn = document.createElement("button");
-            btn.className = "option-button";
-            btn.innerText = optionText;
-            // Handle UI states for historical feedback/selections
-            if (alreadyAnswered) {
-                btn.disabled = true;
-                if (isImmediateFeedbackEnabled) {
-                    if (optionText === correctText) {
-                        btn.classList.add("correct");
-                    } else if (optionText === selectedAnswerText) {
-                        btn.classList.add("wrong");
-                    }
-                } else {
-                    if (optionText === selectedAnswerText) {
-                        btn.classList.add("selected");
-                    }
+        const btn = document.createElement("button");
+        btn.className = "option-button";
+        btn.innerText = optionText;
+        // Handle UI states for historical feedback/selections
+        if (alreadyAnswered) {
+            btn.disabled = true;
+            if (isImmediateFeedbackEnabled) {
+                if (optionText === correctText) {
+                    btn.classList.add("correct");
+                } else if (optionText === selectedAnswerText) {
+                    btn.classList.add("wrong");
                 }
             } else {
-                btn.onclick = () => selectOption(btn, optionText, correctText);
+                if (optionText === selectedAnswerText) {
+                    btn.classList.add("selected");
+                }
             }
-            optionsContainer.appendChild(btn);
+        } else {
+            btn.onclick = () => selectOption(btn, optionText, correctText);
         }
+        optionsContainer.appendChild(btn);
     });
     // Show/Hide Explanation for Immediate Feedback Practice
     const explanationDiv = document.getElementById("explanation-box");
@@ -671,12 +696,13 @@ function renderCollapsibleResultsTable(bucketScores) {
         const countTested = data.total;
         const percent = countTested > 0 ? Math.round((data.correct / countTested) * 100) : 0;
         
-        let catColor = 'var(--navy-grey)';
-        if (countTested > 0) {
-            if (percent >= 90) catColor = '#48bb78';
-            else if (percent >= 80) catColor = '#ecc94b';
-            else catColor = '#e53e3e';
-        }
+    let catColor = 'var(--navy-grey)';
+    if (countTested > 0) {
+        if (percent >= 90) catColor = '#48bb78';
+        else if (percent >= 80) catColor = '#ecc94b'; // Yellow
+        else if (percent >= 70) catColor = '#D96F16'; // Orange
+        else catColor = '#e53e3e';
+    }
         const rowHeader = document.createElement("tr");
         rowHeader.className = "collapsible-header";
         rowHeader.onclick = () => toggleDetailsRow(`rule-breakdown-${b}`, `icon-b-${b}`);
@@ -705,7 +731,8 @@ function renderCollapsibleResultsTable(bucketScores) {
                 
                 let rColor = '#e53e3e';
                 if (rPercent >= 90) rColor = '#48bb78';
-                else if (rPercent >= 80) rColor = '#ecc94b';
+                else if (rPercent >= 80) rColor = '#ecc94b'; // Yellow
+                else if (rPercent >= 70) rColor = '#D96F16'; // Orange
                 nestedHtml += `
                     <div class="rule-detail-item">
                         <span>Rule ${r}</span>
@@ -882,16 +909,17 @@ function renderHistoricalRuleBreakdown(entries) {
     });
     const hasAnyRuleData = Object.values(cumulativeRules).some(r => r.total > 0);
     container.innerHTML = `
-        <div class="history-rule-header">
-            <h3 class="history-rule-title">📊 Performance by Rule</h3>
+            <div class="history-rule-header">
+                <h3 class="history-rule-title">🎯 Performance by Rule</h3>
+            </div>
             <div class="history-rule-filters" id="rule-filters-container">
                 <button class="rule-filter-btn active" data-filter="all">All</button>
-                <button class="rule-filter-btn" data-filter="mastered">High (≥90%)</button>
-                <button class="rule-filter-btn" data-filter="warning">Medium (80-89%)</button>
-                <button class="rule-filter-btn" data-filter="weak">Low (<80%)</button>
+                <button class="rule-filter-btn" data-filter="mastered">Pass</button>
+                <button class="rule-filter-btn" data-filter="warning">80-89%</button>
+                <button class="rule-filter-btn" data-filter="developing">70-79%</button>
+                <button class="rule-filter-btn" data-filter="weak">&lt;70%</button>
                 <button class="rule-filter-btn" data-filter="untested">Untested</button>
             </div>
-        </div>
         ${!hasAnyRuleData ? `
             <div style="text-align: center; color: var(--navy-grey); font-size: 13px; padding: 16px; background: rgba(255,255,255,0.02); border-radius: 6px;">
                 📝 Rule-specific mastery breakdown will show up here after completing your first assessment.
@@ -917,6 +945,8 @@ function renderHistoricalRuleBreakdown(entries) {
                     status = "mastered";
                 } else if (percent >= 80) {
                     status = "warning";
+                } else if (percent >= 70) {
+                    status = "developing"; // Orange (Added!)
                 } else {
                     status = "weak";
                 }
@@ -924,6 +954,7 @@ function renderHistoricalRuleBreakdown(entries) {
             // Filter checks
             if (activeFilter === "mastered" && status !== "mastered") continue;
             if (activeFilter === "warning" && status !== "warning") continue;
+            if (activeFilter === "developing" && status !== "developing") continue; // Added!
             if (activeFilter === "weak" && status !== "weak") continue;
             if (activeFilter === "untested" && status !== "untested") continue;
             const item = document.createElement("div");
@@ -1053,6 +1084,13 @@ function injectHistoryRuleStyles() {
         .rule-status-warning .rule-grid-score {
             color: #ecc94b;
         }
+        .rule-status-developing {
+            border-left: 2px solid #D96F16;
+            background: rgba(237, 137, 54, 0.04);
+        }
+        .rule-status-developing .rule-grid-score {
+            color: #D96F16;
+        }
         .rule-status-weak {
             border-left: 2px solid #e53e3e;
             background: rgba(229, 62, 62, 0.04);
@@ -1080,6 +1118,7 @@ function clearSavedAttempts() {
 /**
  * Lifecycle and workflow handlers
  */
+
 /**
  * Safely exits the active assessment. If questions were answered, 
  * it shrinks the test to match only the completed questions and submits it
