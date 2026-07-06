@@ -326,7 +326,7 @@ const questionBank = [
   },
   {
     "Q #": 35,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 9. You are on vessel B and vessel A desires to overtake you on your starboard side as shown. After the vessels have exchanged one blast signals, you should _______.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 9. You are on vessel B and vessel A desires to overtake you on your starboard side as shown. After the vessels have exchanged one-blast signals, you should _______.",
     "RULE TAGS": "Ror inland;Ror 13;Ror 34c",
     "ANSWER 1": "alter course to the left",
     "POINTS": 0,
@@ -521,7 +521,7 @@ const questionBank = [
   },
   {
     "Q #": 53,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 38. You are on vessel A and vessel B desires to overtake you on the starboard side as shown. After the vessels have exchanged one blast signals you should _______.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 38. You are on vessel A and vessel B desires to overtake you on the starboard side as shown. After the vessels have exchanged one-blast signals you should _______.",
     "RULE TAGS": "Ror inland;Ror 13",
     "ANSWER 1": "alter course to the left",
     "POINTS": 0,
@@ -716,7 +716,7 @@ const questionBank = [
   },
   {
     "Q #": 75,
-    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 31. You are on vessel A, and vessel B desires to overtake you on your starboard side as shown. After the vessels have exchanged one blast signals, you should _______.",
+    "QUESTION TEXT": "INLAND ONLY Refer to Diagram 31. You are on vessel A, and vessel B desires to overtake you on your starboard side as shown. After the vessels have exchanged one-blast signals, you should _______.",
     "RULE TAGS": "Ror inland;Ror 13;Ror 34c",
     "ANSWER 1": "alter course to the left",
     "POINTS": 0,
@@ -748,7 +748,7 @@ const questionBank = [
     "POINTS": 0,
     "ANSWER 2": "The vessels should exchange two blast whistle signals and pass starboard to starboard.",
     "POINTS.1": 100,
-    "ANSWER 3": "The vessels should exchange one blast whistle signals and pass starboard to starboard.",
+    "ANSWER 3": "The vessels should exchange one-blast whistle signals and pass starboard to starboard.",
     "POINTS.2": 0,
     "ANSWER 4": "The vessels should pass starboard to starboard and must sound whistle signals only if either vessel changes course.",
     "POINTS.3": 0
@@ -861,13 +861,13 @@ const questionBank = [
     "Q #": 89,
     "QUESTION TEXT": "INLAND ONLY Two vessels are in a starboard to starboard meeting situation and will pass well clear approximately 1/4 mile apart. Which action should each vessel take?",
     "RULE TAGS": "Ror inland;Ror 34a",
-    "ANSWER 1": "Sound a one blast whistle signal and turn to starboard.",
+    "ANSWER 1": "Sound a one-blast whistle signal and turn to starboard.",
     "POINTS": 0,
     "ANSWER 2": "Maintain course and sound no signal.",
     "POINTS.1": 0,
-    "ANSWER 3": "Sound a two blast whistle signal and maintain course.",
+    "ANSWER 3": "Sound a two-blast whistle signal and maintain course.",
     "POINTS.2": 100,
-    "ANSWER 4": "Sound a three blast whistle signal and turn to port.",
+    "ANSWER 4": "Sound a three-blast whistle signal and turn to port.",
     "POINTS.3": 0
   },
   {
@@ -915,7 +915,7 @@ const questionBank = [
     "RULE TAGS": "Ror inland;Ror 34c",
     "ANSWER 1": "not overtake the other vessel until both vessels exchange the same passing signal",
     "POINTS": 100,
-    "ANSWER 2": "not overtake the other vessel until it sounds another five short and rapid blast signal",
+    "ANSWER 2": "not overtake the other vessel until it sounds another five short and rapid blasts",
     "POINTS.1": 0,
     "ANSWER 3": "pass the other vessel along its starboard side",
     "POINTS.2": 0,
@@ -963,7 +963,7 @@ const questionBank = [
   },
   {
     "Q #": 97,
-    "QUESTION TEXT": "INLAND ONLY You are aboard the stand-on vessel in a crossing situation. You sound a one blast whistle signal. The give-way vessel answers with a two blast whistle signal. You should sound the doubt signal and __________.",
+    "QUESTION TEXT": "INLAND ONLY You are aboard the stand-on vessel in a crossing situation. You sound a one-blast whistle signal. The give-way vessel answers with a two-blast whistle signal. You should sound the doubt signal and __________.",
     "RULE TAGS": "Ror inland;Ror 34a",
     "ANSWER 1": "maintain course and speed as you are the stand-on vessel",
     "POINTS": 0,
@@ -1023,7 +1023,7 @@ const questionBank = [
     "POINTS.1": 0,
     "ANSWER 3": "not overtake the other vessel until both vessels exchange the same passing signal",
     "POINTS.2": 100,
-    "ANSWER 4": "not overtake the other vessel until it sounds another five short and rapid blast signal",
+    "ANSWER 4": "not overtake the other vessel until it sounds another five short and rapid blasts",
     "POINTS.3": 0
   },
   {
@@ -2243,7 +2243,7 @@ const questionBank = [
     "POINTS": 0,
     "ANSWER 2": "The vessels must exchange two blast whistle signals and pass port to port.",
     "POINTS.1": 0,
-    "ANSWER 3": "The vessels must exchange one blast whistle signals and pass starboard to starboard.",
+    "ANSWER 3": "The vessels must exchange one-blast whistle signals and pass starboard to starboard.",
     "POINTS.2": 0,
     "ANSWER 4": "The vessels may reach agreement by radiotelephone and sound no whistle signal.",
     "POINTS.3": 100
@@ -2373,7 +2373,7 @@ const questionBank = [
     "POINTS": 0,
     "ANSWER 2": "The vessels should exchange two blast whistle signals and pass starboard to starboard.",
     "POINTS.1": 100,
-    "ANSWER 3": "The vessels should exchange one blast whistle signals and pass starboard to starboard",
+    "ANSWER 3": "The vessels should exchange one-blast whistle signals and pass starboard to starboard",
     "POINTS.2": 0,
     "ANSWER 4": "The vessels should pass starboard to starboard and must sound whistle signals only if either vessel changes course.",
     "POINTS.3": 0
@@ -2386,7 +2386,7 @@ const questionBank = [
     "POINTS": 100,
     "ANSWER 2": "The vessels should exchange two blast whistle signals and pass starboard to starboard.",
     "POINTS.1": 0,
-    "ANSWER 3": "The vessels should exchange one blast whistle signals and pass starboard to starboard.",
+    "ANSWER 3": "The vessels should exchange one-blast whistle signals and pass starboard to starboard.",
     "POINTS.2": 0,
     "ANSWER 4": "The vessel with the tow should initiate the whistle signals.",
     "POINTS.3": 0
@@ -3749,7 +3749,7 @@ const questionBank = [
     "RULE TAGS": "Ror international;Ror 03a",
     "ANSWER 1": "WIG Craft",
     "POINTS": 0,
-    "ANSWER 2": "nondisplacement draft",
+    "ANSWER 2": "nondisplacement craft",
     "POINTS.1": 0,
     "ANSWER 3": "barges",
     "POINTS.2": 0,
@@ -4310,7 +4310,7 @@ const questionBank = [
     "POINTS": 0,
     "ANSWER 2": "Sounding 5 short blasts on the whistle",
     "POINTS.1": 0,
-    "ANSWER 3": "Answering a one blast whistle signal with two blasts",
+    "ANSWER 3": "Answering a one-blast whistle signal with two blasts",
     "POINTS.2": 0,
     "ANSWER 4": "A flaming barrel of oil on deck",
     "POINTS.3": 100
@@ -4655,7 +4655,7 @@ const questionBank = [
   },
   {
     "Q #": 447,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel approaching your vessel from 235",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A vessel approaching your vessel from 235° relative is in what type of situation?",
     "RULE TAGS": "Ror inland;Ror international;Ror 21;Ror 13",
     "ANSWER 1": "Meeting",
     "POINTS": 0,
@@ -5983,13 +5983,13 @@ const questionBank = [
     "Q #": 551,
     "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A 20-meter vessel is towing another vessel astern. The length of the tow from the stern of the towing vessel to the stern of the tow is 75 meters. How many white towing masthead lights shall the towing vessel show at night?",
     "RULE TAGS": "Ror inland;Ror international;Ror 24a",
-    "ANSWER 1": 1,
+    "ANSWER 1": "1",
     "POINTS": 0,
-    "ANSWER 2": 2,
+    "ANSWER 2": "2",
     "POINTS.1": 100,
-    "ANSWER 3": 3,
+    "ANSWER 3": "3",
     "POINTS.2": 0,
-    "ANSWER 4": 4,
+    "ANSWER 4": "4",
     "POINTS.3": 0
   },
   {
@@ -6412,13 +6412,13 @@ const questionBank = [
     "Q #": 584,
     "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A towing vessel is towing two barges astern. The length of the tow from the stern of the tug to the stern of the last barge is 250 meters. The towing vessel is 45 meters in length. How many white masthead lights should be displayed on the tugboat at night?",
     "RULE TAGS": "Ror inland;Ror international;Ror 24a",
-    "ANSWER 1": 1,
+    "ANSWER 1": "1",
     "POINTS": 0,
-    "ANSWER 2": 2,
+    "ANSWER 2": "2",
     "POINTS.1": 0,
-    "ANSWER 3": 3,
+    "ANSWER 3": "3",
     "POINTS.2": 100,
-    "ANSWER 4": 4,
+    "ANSWER 4": "4",
     "POINTS.3": 0
   },
   {
@@ -6600,7 +6600,7 @@ const questionBank = [
     "POINTS.1": 0,
     "ANSWER 3": "initiate an exchange of passing signals",
     "POINTS.2": 0,
-    "ANSWER 4": "do not cross the channel if you might impede the other vessel",
+    "ANSWER 4": "not cross the channel if you might impede the other vessel",
     "POINTS.3": 100
   },
   {
@@ -6633,13 +6633,13 @@ const questionBank = [
     "Q #": 601,
     "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND You are towing two barges astern. The length of the tow from the stern of the tug to the stern of the last barge is 150 meters. How many white towing identification lights should be displayed on the tugboat at night?",
     "RULE TAGS": "Ror inland;Ror international;Ror 24a",
-    "ANSWER 1": 1,
+    "ANSWER 1": "1",
     "POINTS": 0,
-    "ANSWER 2": 2,
+    "ANSWER 2": "2",
     "POINTS.1": 100,
-    "ANSWER 3": 3,
+    "ANSWER 3": "3",
     "POINTS.2": 0,
-    "ANSWER 4": 4,
+    "ANSWER 4": "4",
     "POINTS.3": 0
   },
   {
@@ -6949,7 +6949,7 @@ const questionBank = [
     "POINTS": 0,
     "ANSWER 2": "Continuous sounding of fog signaling apparatus",
     "POINTS.1": 0,
-    "ANSWER 3": "International Code Flags \"November\" over \"Charlie",
+    "ANSWER 3": "International Code Flags \"November\" over \"Charlie\"",
     "POINTS.2": 0,
     "ANSWER 4": "Basket hanging in the rigging",
     "POINTS.3": 100
@@ -7218,13 +7218,13 @@ const questionBank = [
     "Q #": 647,
     "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND Refer to Diagrams 46, 54, 60, and 75. A power-driven vessel, when towing another vessel astern shall show the light(s) in Diagram __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 24a",
-    "ANSWER 1": 75,
+    "ANSWER 1": "75",
     "POINTS": 0,
-    "ANSWER 2": 60,
+    "ANSWER 2": "60",
     "POINTS.1": 100,
-    "ANSWER 3": 54,
+    "ANSWER 3": "54",
     "POINTS.2": 0,
-    "ANSWER 4": 46,
+    "ANSWER 4": "46",
     "POINTS.3": 0
   },
   {
@@ -7554,7 +7554,7 @@ const questionBank = [
   },
   {
     "Q #": 675,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND In fog, you hear apparently forward of your beam a fog signal of 2 prolonged blasts in succession every two minutes. This signal indicates a __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND In fog, you hear apparently forward of your beam a fog signal of two prolonged blasts in succession every two minutes. This signal indicates a __________.",
     "RULE TAGS": "Ror inland;Ror 35b;Ror international",
     "ANSWER 1": "power-driven vessel making way through the water",
     "POINTS": 0,
@@ -7729,7 +7729,7 @@ const questionBank = [
     "POINTS": 0,
     "ANSWER 2": "Vertical motion of a white lantern at night",
     "POINTS.1": 100,
-    "ANSWER 3": "Code flags \"November\" and \"Charlie",
+    "ANSWER 3": "Code flags \"November\" and \"Charlie\"",
     "POINTS.2": 0,
     "ANSWER 4": "Dye marker on the water",
     "POINTS.3": 0
@@ -10108,7 +10108,7 @@ const questionBank = [
     "POINTS": 0,
     "ANSWER 2": "north (000°)",
     "POINTS.1": 0,
-    "ANSWER 3": "north (000°)",
+    "ANSWER 3": "east (090°)",
     "POINTS.2": 0,
     "ANSWER 4": "southwest (225°)",
     "POINTS.3": 100
@@ -11391,13 +11391,13 @@ const questionBank = [
     "Q #": 984,
     "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A towing vessel 35 meters in length, with a tow 100 meters astern, must show a minimum of how many masthead lights?",
     "RULE TAGS": "Ror inland;Ror international;Ror 24a",
-    "ANSWER 1": 1,
+    "ANSWER 1": "1",
     "POINTS": 0,
-    "ANSWER 2": 2,
+    "ANSWER 2": "2",
     "POINTS.1": 100,
-    "ANSWER 3": 3,
+    "ANSWER 3": "3",
     "POINTS.2": 0,
-    "ANSWER 4": 4,
+    "ANSWER 4": "4",
     "POINTS.3": 0
   },
   {
@@ -11820,13 +11820,13 @@ const questionBank = [
     "Q #": 1017,
     "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND A 60-meter vessel which is trawling is required to show how many white masthead lights at night?",
     "RULE TAGS": "Ror 26b;Ror inland;Ror international",
-    "ANSWER 1": 1,
+    "ANSWER 1": "1",
     "POINTS": 100,
-    "ANSWER 2": 2,
+    "ANSWER 2": "2",
     "POINTS.1": 0,
-    "ANSWER 3": 3,
+    "ANSWER 3": "3",
     "POINTS.2": 0,
-    "ANSWER 4": 4,
+    "ANSWER 4": "4",
     "POINTS.3": 0
   },
   {
@@ -11909,7 +11909,7 @@ const questionBank = [
   },
   {
     "Q #": 1026,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND While underway and in sight of another vessel, less than one half mile away, you put your engines on astern propulsion. Which statement concerning whistle signals is TRUE?",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND While underway and in sight of another vessel less than a half mile away, you put your engines on astern propulsion. Which statement concerning whistle signals is TRUE?",
     "RULE TAGS": "Ror inland;Ror international;Ror 34a",
     "ANSWER 1": "You need not sound any whistle signals.",
     "POINTS": 0,
@@ -11926,7 +11926,7 @@ const questionBank = [
     "RULE TAGS": "Ror inland;Ror international;Ror 34a",
     "ANSWER 1": "intends to hold course and speed",
     "POINTS": 0,
-    "ANSWER 2": "is uncertain about the actions of B",
+    "ANSWER 2": "is uncertain about the actions of vessel B",
     "POINTS.1": 0,
     "ANSWER 3": "proposes to cross ahead of the other vessel",
     "POINTS.2": 0,
@@ -12858,7 +12858,7 @@ const questionBank = [
   },
   {
     "Q #": 1118,
-    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND According to the Rules, a vessels length is their __________.",
+    "QUESTION TEXT": "BOTH INTERNATIONAL & INLAND According to the Rules, a vessel's length is their __________.",
     "RULE TAGS": "Ror inland;Ror international;Ror 03j",
     "ANSWER 1": "length between the perpendiculars",
     "POINTS": 0,
@@ -13126,7 +13126,7 @@ const questionBank = [
     "POINTS.1": 0,
     "ANSWER 3": "keep out of the way of the cargo vessel",
     "POINTS.2": 100,
-    "ANSWER 4": "do not cross the channel",
+    "ANSWER 4": "not cross the channel",
     "POINTS.3": 0
   },
   {
@@ -13601,7 +13601,7 @@ const questionBank = [
     "Q #": 1189,
     "QUESTION TEXT": "INTERNATIONAL ONLY You are approaching another vessel and will pass starboard to starboard without danger if no course changes are made. You should __________.",
     "RULE TAGS": "Ror international;Ror 34a",
-    "ANSWER 1": "hold course and sound a two blast whistle signal",
+    "ANSWER 1": "hold course and sound a two-blast whistle signal",
     "POINTS": 0,
     "ANSWER 2": "hold course and sound no whistle signal",
     "POINTS.1": 100,
@@ -13885,7 +13885,7 @@ const questionBank = [
   },
   {
     "Q #": 1213,
-    "QUESTION TEXT": "INTERNATIONAL ONLY Two power-driven vessels are meeting. A two blast whistle signal by either vessel means __________.",
+    "QUESTION TEXT": "INTERNATIONAL ONLY Two power-driven vessels are meeting. a two-blast whistle signal by either vessel means __________.",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "I intend to alter course to port",
     "POINTS": 0,
@@ -14015,7 +14015,7 @@ const questionBank = [
   },
   {
     "Q #": 1223,
-    "QUESTION TEXT": "INTERNATIONAL ONLY On open water two vessels are in an overtaking situation. The overtaking vessel has just sounded one short blast on the whistle. What is the meaning of this whistle signal?",
+    "QUESTION TEXT": "INTERNATIONAL ONLY On open water, two vessels are in an overtaking situation. The overtaking vessel has just sounded one short blast on the whistle. What is the meaning of this whistle signal?",
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "I request permission to pass you on my port side.",
     "POINTS": 0,
@@ -14474,7 +14474,7 @@ const questionBank = [
     "RULE TAGS": "Ror international;Ror 34a",
     "ANSWER 1": "hold course and sound no whistle signal",
     "POINTS": 100,
-    "ANSWER 2": "hold course and sound a two blast whistle signal",
+    "ANSWER 2": "hold course and sound a two-blast whistle signal",
     "POINTS.1": 0,
     "ANSWER 3": "change course to starboard and sound one blast",
     "POINTS.2": 0,
